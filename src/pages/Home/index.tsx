@@ -10,7 +10,7 @@ const Home = () => {
         в&nbsp;концентрацию, спокойствие или&nbsp;глубокий сон
       </p>
 
-      <Button variant="default" href="/play">Play</Button>
+      <Button size="xl" className="text-xl" variant="default" href="/play">Попробуй</Button>
     </div>
   )
 }

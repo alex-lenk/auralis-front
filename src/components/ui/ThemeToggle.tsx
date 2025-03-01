@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Moon, Sun } from 'lucide-react'
-import { themeSelect, useTheme } from '@/hooks/useTheme'
+
+import { themeSelect, useTheme } from '@/shared/hooks/useTheme'
 import { Button } from '@/components/ui/Button'
 
 export function ThemeToggle() {
@@ -20,7 +21,7 @@ export function ThemeToggle() {
       variant="secondary"
       onClick={() => setTheme(theme === themeSelect.dark ? themeSelect.light : themeSelect.dark)}
     >
-      {theme === themeSelect.dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      { theme === themeSelect.dark ? <Sun className="rotateSpin h-5 w-5" /> : <Moon className="h-5 w-5" /> }
     </Button>
   )
 }

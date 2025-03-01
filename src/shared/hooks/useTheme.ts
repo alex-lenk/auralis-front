@@ -24,5 +24,5 @@ export function useTheme() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
-  return {theme, setTheme}
+  return { theme, setTheme }
 }
