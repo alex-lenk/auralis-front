@@ -1,7 +1,7 @@
-import * as React from 'react'
+import { ButtonHTMLAttributes } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
-
+import { NavLink, NavLinkProps } from 'react-router'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
@@ -32,15 +32,34 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  ref?: React.Ref<HTMLButtonElement>;
+  href?: string;
+  navLinkProps?: Omit<NavLinkProps, 'to'>;
 }
 
-function Button({className, variant, size, asChild = false, ref, ...props}: ButtonProps) {
+function Button({ className, variant, size, asChild = false, href, navLinkProps, ...props }: ButtonProps) {
   const Comp = asChild ? Slot : 'button'
-  return <Comp className={cn(buttonVariants({variant, size, className}))} ref={ref} {...props} />
+
+  if (href) {
+    return (
+      <NavLink
+        to={ href }
+        className={ cn(buttonVariants({ variant, size, className })) }
+        { ...navLinkProps }
+      >
+        { props.children }
+      </NavLink>
+    )
+  }
+
+  return (
+    <Comp
+      className={ cn(buttonVariants({ variant, size, className })) }
+      { ...props }
+    />
+  )
 }
 
 export { Button, buttonVariants }

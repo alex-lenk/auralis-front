@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/Button'
+
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen p-6 text-center">
@@ -7,6 +9,8 @@ const Home = () => {
         Где звук встречается с&nbsp;безмятежностью - погрузись
         в&nbsp;концентрацию, спокойствие или&nbsp;глубокий сон
       </p>
+
+      <Button variant="default" href="/play">Play</Button>
     </div>
   )
 }
