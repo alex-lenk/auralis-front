@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { RootStore } from '@/stores/RootStore'
 import { getFingerprint, saveFingerprint } from '@/shared/lib/indexedDB'
@@ -68,6 +68,7 @@ export interface FingerprintData {
 
 class DeviceFingerprintStore {
   fingerprint: FingerprintData
+  loading: boolean = true
 
   constructor(protected rootStore: RootStore) {
     makeAutoObservable(this)
@@ -108,6 +109,10 @@ class DeviceFingerprintStore {
   }
 
   async generateFingerprint() {
+    runInAction(() => {
+      this.loading = true
+    })
+
     const [
       webRTCIPs,
       batteryStatus,
@@ -118,7 +123,7 @@ class DeviceFingerprintStore {
       getMediaDevices(),
     ])
 
-    this.fingerprint = {
+    const newFingerprint = {
       userData: {
         os: getOsName(),
         architecture: getArchitecture(),
@@ -145,16 +150,31 @@ class DeviceFingerprintStore {
       fingerprintHash: await this.hashFingerprint(),
     }
 
-    await saveFingerprint(this.sanitizeFingerprint(this.fingerprint))
+    await saveFingerprint(this.sanitizeFingerprint(newFingerprint))
+
+    runInAction(() => {
+      this.fingerprint = newFingerprint
+      this.loading = false
+    })
   }
 
   async loadFingerprint() {
+    runInAction(() => {
+      this.loading = true
+    })
+
     const existingFingerprint = await getFingerprint()
     if (existingFingerprint) {
-      this.fingerprint = Object.assign(this.createEmptyFingerprint(), existingFingerprint)
+      runInAction(() => {
+        this.fingerprint = Object.assign(this.createEmptyFingerprint(), existingFingerprint)
+      })
     } else {
       await this.generateFingerprint()
     }
+
+    runInAction(() => {
+      this.loading = false
+    })
   }
 
   private async hashFingerprint(): Promise<string> {

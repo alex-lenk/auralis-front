@@ -3,16 +3,22 @@ import { createBrowserRouter } from 'react-router'
 import App from '@/App'
 import ErrorBoundary from '@/App/providers/ErrorBoundary'
 import Home from '@/pages/Home'
-import Play from '@/pages/Play/Play'
+import Walkman from '@/pages/Walkman'
+
+export enum urlPage {
+  Index = '/',
+  Walkman = '/walkman',
+  SignIn = '/auth/login',
+}
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: urlPage.Index,
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'play', element: <Play /> },
+      { path: urlPage.Walkman, element: <Walkman /> },
     ],
   },
 ])

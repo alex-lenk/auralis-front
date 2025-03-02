@@ -1,0 +1,16 @@
+{
+  "error": {
+    "404": {
+      "title": "404",
+      "description": "Page not found",
+      "message": "Error: Page at {{path}} does not exist"
+    },
+    "500": {
+      "title": "500",
+      "description": "Server error",
+      "message": "Something went wrong on the server"
+    },
+    "unknown": "Unknown error",
+    "backToHome": "Back to home"
+  }
+}

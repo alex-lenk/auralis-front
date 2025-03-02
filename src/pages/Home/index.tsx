@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button'
+import { urlPage } from '@/router'
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
         в&nbsp;концентрацию, спокойствие или&nbsp;глубокий сон
       </p>
 
-      <Button size="xl" className="text-xl" variant="default" href="/play">Попробуй</Button>
+      <Button size="xl" className="text-xl" variant="default" href={urlPage.Walkman}>Попробуй</Button>
     </div>
   )
 }
