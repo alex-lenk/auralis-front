@@ -12,5 +12,9 @@
     },
     "unknown": "Unknown error",
     "backToHome": "Back to home"
+  },
+  "homePage": {
+    "subtitle": "Where sound meets serenity - immerse yourself in concentration, calm or deep sleep",
+    "textButton": "Try it!"
   }
 }

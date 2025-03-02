@@ -1,12 +1,11 @@
 import { NavLink } from 'react-router'
 
 import { urlPage } from '@/router'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { ThemeToggle } from '@/modules/Header/components/ThemeToggle'
+import LanguageSwitcher from '@/modules/Header/components/LanguageSwitcher'
 import { Button } from '@/components/ui/Button'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Header() {
-
   return (
     <header className="container mx-auto flex items-center justify-between p-4">
       <NavLink to={urlPage.Index} className="flex items-center">
