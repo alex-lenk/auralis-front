@@ -4,12 +4,7 @@ import App from '@/App'
 import ErrorBoundary from '@/App/providers/ErrorBoundary'
 import Home from '@/pages/Home'
 import Walkman from '@/pages/Walkman'
-
-export enum urlPage {
-  Index = '/',
-  Walkman = '/walkman',
-  SignIn = '/auth/login',
-}
+import { urlPage } from '@/shared/enum/urlPage'
 
 const router = createBrowserRouter([
   {

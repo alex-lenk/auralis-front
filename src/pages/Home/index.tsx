@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/ui/Button'
-import { urlPage } from '@/router'
+import { urlPage } from '@/shared/enum/urlPage'
 
 const Home = () => {
   const { t } = useTranslation()

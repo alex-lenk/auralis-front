@@ -1,7 +1,7 @@
 import { isRouteErrorResponse, NavLink, useRouteError } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
-import { urlPage } from '@/router'
+import { urlPage } from '@/shared/enum/urlPage'
 
 interface RouteError {
   status: number;
