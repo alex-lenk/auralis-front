@@ -14,13 +14,13 @@ const Policy = () => {
           быструю работу сайта и&nbsp;запоминать ваши предпочтения.
         </p>
         <p className="mb-4">
-          Сайт не использует куки для отслеживания или&nbsp;сбора личных данных. Всё, что&nbsp; собирается,
+          Сайт не использует куки для отслеживания или&nbsp;сбора личных данных. Всё, что&nbsp;собирается,
           направлено на&nbsp;то, чтобы ваш опыт был максимально комфортным.
         </p>
         <p>
           Если у вас есть вопросы, напишите мне на
-          <a href="mailto:your-email@example.com" className="ms-2 text-blue-500 hover:underline">
-            your-email@example.com
+          <a href={`mailto:${import.meta.env.VITE_API_EMAIL}`} className="ms-2 text-blue-500 hover:underline">
+            {import.meta.env.VITE_API_EMAIL}
           </a>
           . Спасибо за ваше доверие!
         </p>
