@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'din';
+  font-display: swap;
+  src: url('/assets/fonts/dinprobold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ibm';
+  font-display: swap;
+  src: url('/assets/fonts/ibmplexmono.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ibm';
+  font-display: swap;
+  src: url('/assets/fonts/ibmplexmonolight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  font-family: 'ibm', sans-serif;
+  background-image: url('/assets/img/bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.rotateSpin {
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rotateSpin {
+    animation: logo-spin infinite 10s linear;
+  }
+}

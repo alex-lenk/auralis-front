@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router'
 
 import { urlPage } from '@/shared/enum/urlPage'
-import { ThemeToggle } from '@/modules/Header/components/ThemeToggle'
+import ThemeToggle from '@/modules/Header/components/ThemeToggle'
 import LanguageSwitcher from '@/modules/Header/components/LanguageSwitcher'
 import { Button } from '@/components/ui/Button'
 

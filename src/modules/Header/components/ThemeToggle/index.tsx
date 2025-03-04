@@ -1,27 +1,21 @@
-import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
 import { Moon, Sun } from 'lucide-react'
 
-import { themeSelect, useTheme } from '@/shared/hooks/useTheme'
+import { useStore } from '@/stores/StoreContext'
 import { Button } from '@/components/ui/Button'
 
-export function ThemeToggle() {
-  const {theme, setTheme} = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return <div className="w-10 h-10" /> // Заглушка для SSR
-  }
+const ThemeToggle = observer(() => {
+  const { themeToggleStore } = useStore()
 
   return (
-    <Button
-      variant="secondary"
-      onClick={() => setTheme(theme === themeSelect.dark ? themeSelect.light : themeSelect.dark)}
-    >
-      { theme === themeSelect.dark ? <Sun className="rotateSpin h-5 w-5" /> : <Moon className="h-5 w-5" /> }
+    <Button variant="secondary" onClick={() => themeToggleStore.toggleTheme()}>
+      {themeToggleStore.theme === 'dark' ? (
+        <Sun className="rotateSpin h-5 w-5" />
+      ) : (
+        <Moon className="h-5 w-5" />
+      )}
     </Button>
   )
-}
+})
+
+export default ThemeToggle
