@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next'
 
+import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
 import { urlPage } from '@/shared/enum/urlPage'
 
 const Home = () => {
+  useDocumentTitle('Auralis - где звук встречается с безмятежностью');
   const { t } = useTranslation()
 
   return (

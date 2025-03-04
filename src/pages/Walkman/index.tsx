@@ -3,11 +3,13 @@ import { observer } from 'mobx-react-lite'
 import { Loader, Play, Pause, Volume2, VolumeOff } from 'lucide-react'
 
 import { useStore } from '@/stores/StoreContext'
+import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
 import { Slider } from '@/components/ui/Slider'
 
 const Walkman = observer(() => {
   const { deviceFingerprintStore, audioStore } = useStore()
+  useDocumentTitle('Play: Focus - Auralis: где звук встречается с безмятежностью')
 
   useEffect(() => {
     deviceFingerprintStore.loadFingerprint()
