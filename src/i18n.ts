@@ -10,6 +10,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: language.Ru,
     fallbackLng: language.Ru,
     debug: false,
     interpolation: {
