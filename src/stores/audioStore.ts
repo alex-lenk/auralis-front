@@ -6,7 +6,7 @@ class AudioStore {
   isPlaying = false
   volume = 50
   isMuted = false
-  audio = new Audio('http://localhost:7382/muz/focus_8/focus_8_60s_0000.aac')
+  audio = new Audio('/muz/focus_8/focus_8_60s_0052.aac')
 
   constructor(protected rootStore: RootStore) {
     makeAutoObservable(this)

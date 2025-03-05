@@ -32,6 +32,10 @@ const Walkman = observer(() => {
       </div>
 
       <div className="flex flex-wrap justify-between items-center w-full max-w-xl space-y-4">
+        <Button variant="secondary" size="lg" onClick={ () => audioStore.togglePlay() }>
+          { audioStore.isPlaying ? <Pause size={ 32 } /> : <Play size={ 32 } /> }
+        </Button>
+
         <div className="flex items-center space-x-4">
           <Button variant="secondary" onClick={ () => audioStore.toggleMute() }>
             { audioStore.isMuted ? <VolumeOff size={ 24 } /> : <Volume2 size={ 24 } /> }
@@ -45,10 +49,6 @@ const Walkman = observer(() => {
             onValueChange={ (v) => audioStore.setVolume(v[0]) }
           />
         </div>
-
-        <Button variant="secondary" size="lg" onClick={ () => audioStore.togglePlay() }>
-          { audioStore.isPlaying ? <Pause size={ 32 } /> : <Play size={ 32 } /> }
-        </Button>
       </div>
     </div>
   )

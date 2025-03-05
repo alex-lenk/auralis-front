@@ -1,5 +1,8 @@
 * text eol=lf
 *.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
 
 *.png binary
 *.jpg binary
@@ -19,4 +22,5 @@
 *.tif binary
 *.ogv binary
 *.dat binary
+*.aac binary
 * -lf
