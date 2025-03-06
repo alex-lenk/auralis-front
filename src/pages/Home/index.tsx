@@ -9,7 +9,7 @@ const Home = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen p-6 text-center">
+    <div className="flex flex-col items-center justify-center grow p-6 text-center">
       <h1 className="mb-5 text-5xl font-bold">Auralis</h1>
 
       <p

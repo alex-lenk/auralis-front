@@ -4,7 +4,7 @@ const Policy = () => {
   useDocumentTitle('Auralis - где звук встречается с безмятежностью')
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen p-6 text-center">
+    <div className="flex flex-col items-center justify-center p-6 text-center">
       <h1 className="mb-6 text-3xl font-bold">Политика использования данных</h1>
 
       <div className="max-w-3xl">
@@ -18,11 +18,13 @@ const Policy = () => {
           направлено на&nbsp;то, чтобы ваш опыт был максимально комфортным.
         </p>
         <p>
-          Если у вас есть вопросы, напишите мне на
+          Если у вас есть вопросы, напишите мне
           <a href={`mailto:${import.meta.env.VITE_API_EMAIL}`} className="ms-2 text-blue-500 hover:underline">
             {import.meta.env.VITE_API_EMAIL}
-          </a>
-          . Спасибо за ваше доверие!
+          </a>.
+          <br />
+          <br />
+          Спасибо за ваше доверие!
         </p>
       </div>
     </div>

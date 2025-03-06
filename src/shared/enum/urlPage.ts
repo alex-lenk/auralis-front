@@ -4,3 +4,7 @@ export enum urlPage {
   SignIn = '/auth/login',
   Policy = '/policy',
 }
+
+export enum externalLinks {
+  AlexLenk= 'https://alexlenk.ru'
+}

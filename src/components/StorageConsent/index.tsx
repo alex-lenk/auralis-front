@@ -24,8 +24,8 @@ const StorageConsent = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-3 flex items-center justify-between z-50">
       <div className="text-sm">
-        Использую современные технологии, чтобы сделать ваш опыт на сайте лучше.
-        <NavLink to={urlPage.Policy} className="ms-2 text-blue-400 hover:underline">
+        Использую современные технологии, чтобы сайт был удобен для вас.
+        <NavLink to={ urlPage.Policy } className="ms-2 text-blue-400 hover:underline">
           Подробнее
         </NavLink>
       </div>
