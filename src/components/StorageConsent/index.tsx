@@ -22,19 +22,21 @@ const StorageConsent = () => {
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-3 flex items-center justify-between z-50">
-      <div className="text-sm">
-        Использую современные технологии, чтобы сайт был удобен для вас.
-        <NavLink to={ urlPage.Policy } className="ms-2 text-blue-400 hover:underline">
-          Подробнее
-        </NavLink>
+    <div className="fixed bottom-0 left-0 right-0 bg-gray-800 p-3 z-50">
+      <div className="container mx-auto flex items-center justify-between text-white">
+        <div className="text-sm">
+          Использую современные технологии, чтобы сайт был удобен для вас.
+          <NavLink to={ urlPage.Policy } className="ms-2 text-blue-400 hover:underline">
+            Подробнее
+          </NavLink>
+        </div>
+        <Button
+          onClick={ handleClose }
+          className="bg-transparent hover:bg-gray-700 text-white border border-white"
+        >
+          Закрыть
+        </Button>
       </div>
-      <Button
-        onClick={ handleClose }
-        className="bg-transparent hover:bg-gray-700 text-white border border-white"
-      >
-        Закрыть
-      </Button>
     </div>
   )
 }
