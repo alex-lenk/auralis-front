@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { NavigateFunction } from 'react-router'
 
 import { RootStore } from '@/stores/RootStore'
+import { urlPage } from '@/shared/enum/urlPage'
 import { getFingerprint, saveFingerprint } from '@/shared/lib/indexedDB'
 import {
   getOsName,
@@ -158,22 +160,26 @@ class DeviceFingerprintStore {
     })
   }
 
-  async loadFingerprint() {
+  async loadFingerprint({ createIfMissing }: { createIfMissing: boolean }, navigate?: NavigateFunction) {
     runInAction(() => {
       this.loading = true
     })
 
     const existingFingerprint = await getFingerprint()
+
     if (existingFingerprint) {
       runInAction(() => {
         this.fingerprint = Object.assign(this.createEmptyFingerprint(), existingFingerprint)
       })
-    } else {
+    } else if (createIfMissing) {
       await this.generateFingerprint()
     }
 
     runInAction(() => {
       this.loading = false
+      if (!this.fingerprint.fingerprintHash && navigate) {
+        navigate(urlPage.Index)
+      }
     })
   }
 

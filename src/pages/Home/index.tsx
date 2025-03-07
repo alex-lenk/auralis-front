@@ -17,7 +17,7 @@ const Home = () => {
 
   const handleButtonClick = async () => {
     setLoading(true)
-    await deviceFingerprintStore.loadFingerprint()
+    await deviceFingerprintStore.loadFingerprint({ createIfMissing: true })
 
     if (deviceFingerprintStore.fingerprint.fingerprintHash) {
       navigate(urlPage.Walkman)

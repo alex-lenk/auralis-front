@@ -5,7 +5,6 @@ import { Loader, Play, Pause, Volume2, VolumeOff } from 'lucide-react'
 
 import { useStore } from '@/stores/StoreContext'
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
-import { urlPage } from '@/shared/enum/urlPage'
 import { Button } from '@/components/ui/Button'
 import { Slider } from '@/components/ui/Slider'
 
@@ -16,10 +15,8 @@ const Walkman = observer(() => {
   useDocumentTitle('Play: Focus - Auralis: где звук встречается с безмятежностью')
 
   useEffect(() => {
-    if (!deviceFingerprintStore.fingerprint.fingerprintHash) {
-      navigate(urlPage.Index)
-    }
-  }, [deviceFingerprintStore.fingerprint.fingerprintHash, navigate])
+    deviceFingerprintStore.loadFingerprint({ createIfMissing: false }, navigate)
+  }, [deviceFingerprintStore, navigate])
 
   if (deviceFingerprintStore.loading) {
     return <Loader className="animate-spin mx-auto" size={ 48 } strokeWidth={ 3 } absoluteStrokeWidth />
