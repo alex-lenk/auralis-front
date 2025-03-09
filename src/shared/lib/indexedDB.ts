@@ -1,7 +1,7 @@
 // src/shared/lib/indexedDB.ts
 import { openDB } from 'idb'
 
-import { FingerprintData } from '@/stores/deviceFingerprintStore'
+import { IFingerprintData } from '@/stores/deviceFingerprintStore'
 
 const DB_NAME = 'deviceFingerprintDB'
 const STORE_NAME = 'fingerprint'
@@ -16,12 +16,12 @@ export const initDB = async () => {
   });
 };
 
-export const saveFingerprint = async (fingerprint: FingerprintData) => {
+export const saveFingerprint = async (fingerprint: IFingerprintData) => {
   const db = await initDB();
   await db.put(STORE_NAME, fingerprint, 'deviceFingerprint');
 };
 
-export const getFingerprint = async (): Promise<FingerprintData | undefined> => {
+export const getFingerprint = async (): Promise<IFingerprintData | undefined> => {
   const db = await initDB();
   return await db.get(STORE_NAME, 'deviceFingerprint');
 };

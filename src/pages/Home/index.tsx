@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 import { Loader } from 'lucide-react'
 
 import { useStore } from '@/stores/StoreContext'
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
-import { urlPage } from '@/shared/enum/urlPage'
 
-const Home = () => {
-  useDocumentTitle('Auralis - где звук встречается с безмятежностью');
+const Home = observer(() => {
+  useDocumentTitle('Auralis - где звук встречается с безмятежностью')
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { deviceFingerprintStore } = useStore()
@@ -17,13 +17,8 @@ const Home = () => {
 
   const handleButtonClick = async () => {
     setLoading(true)
-    await deviceFingerprintStore.loadFingerprint({ createIfMissing: true })
-
-    if (deviceFingerprintStore.fingerprint.fingerprintHash) {
-      navigate(urlPage.Walkman)
-    } else {
-      setLoading(false)
-    }
+    await deviceFingerprintStore.handleAnonymousRegistration(navigate)
+    setLoading(false)
   }
 
   return (
@@ -35,11 +30,17 @@ const Home = () => {
         dangerouslySetInnerHTML={ { __html: t('homePage.subtitle') } }
       />
 
-      <Button size="xl" className="text-xl" variant="default" onClick={handleButtonClick} disabled={loading}>
-        {loading ? <Loader className="animate-spin" size={24} /> : t('homePage.textButton')}
+      <Button
+        size="xl"
+        className="text-xl"
+        variant="default"
+        onClick={ handleButtonClick }
+        disabled={ loading }
+      >
+        { loading ? <Loader className="animate-spin" size={ 24 } /> : t('homePage.textButton') }
       </Button>
     </div>
   )
-}
+})
 
 export default Home

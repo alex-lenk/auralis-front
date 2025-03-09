@@ -1,3 +1,4 @@
+// src/stores/deviceFingerprintStore.ts
 import { makeAutoObservable, runInAction } from 'mobx'
 import { NavigateFunction } from 'react-router'
 
@@ -28,7 +29,7 @@ import {
   checkSensors,
 } from '@/shared/lib/device'
 
-export interface FingerprintData {
+export interface IFingerprintData {
   userData: {
     os: string;
     architecture: string;
@@ -66,18 +67,21 @@ export interface FingerprintData {
     };
   };
   fingerprintHash: string;
+  isSaved: boolean;
 }
 
 class DeviceFingerprintStore {
-  fingerprint: FingerprintData
+  fingerprint: IFingerprintData
   loading: boolean = true
+  isFingerprintLoaded: boolean = false
 
   constructor(protected rootStore: RootStore) {
     makeAutoObservable(this)
     this.fingerprint = this.createEmptyFingerprint()
   }
 
-  private createEmptyFingerprint(): FingerprintData {
+  // Создаём пустую структуру для fingerprint
+  private createEmptyFingerprint(): IFingerprintData {
     return {
       userData: {
         os: '',
@@ -103,18 +107,17 @@ class DeviceFingerprintStore {
         sensors: { accelerometer: false, gyroscope: false, magnetometer: false, orientation: false },
       },
       fingerprintHash: '',
+      isSaved: false,
     }
   }
 
-  private sanitizeFingerprint(fingerprint: FingerprintData): FingerprintData {
+  // Чтобы лишние объекты/методы не попадали в IndexedDB
+  private sanitizeFingerprint(fingerprint: IFingerprintData): IFingerprintData {
     return JSON.parse(JSON.stringify(fingerprint))
   }
 
+  // Генерация нового fingerprint, сохранение в IndexedDB (isSaved = false)
   async generateFingerprint() {
-    runInAction(() => {
-      this.loading = true
-    })
-
     const [
       webRTCIPs,
       batteryStatus,
@@ -125,7 +128,7 @@ class DeviceFingerprintStore {
       getMediaDevices(),
     ])
 
-    const newFingerprint = {
+    const newFingerprint: IFingerprintData = {
       userData: {
         os: getOsName(),
         architecture: getArchitecture(),
@@ -150,44 +153,84 @@ class DeviceFingerprintStore {
         sensors: checkSensors(),
       },
       fingerprintHash: await this.hashFingerprint(),
+      isSaved: false,
     }
 
+    // Сохраняем в IndexedDB с isSaved = false
     await saveFingerprint(this.sanitizeFingerprint(newFingerprint))
 
     runInAction(() => {
       this.fingerprint = newFingerprint
-      this.loading = false
     })
   }
 
-  async loadFingerprint({ createIfMissing }: { createIfMissing: boolean }, navigate?: NavigateFunction) {
+  // Загрузка fingerprint из IndexedDB, при необходимости создаём новый (createIfMissing)
+  async loadFingerprint() {
+    this.loading = true
+    try {
+      const existingFingerprint = await getFingerprint()
+
+      if (existingFingerprint) {
+        runInAction(() => {
+          this.fingerprint = Object.assign(this.createEmptyFingerprint(), existingFingerprint)
+        })
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки отпечатка:', error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+        this.isFingerprintLoaded = true
+      })
+    }
+  }
+
+  async handleAnonymousRegistration(navigate?: NavigateFunction) {
     runInAction(() => {
       this.loading = true
     })
 
-    const existingFingerprint = await getFingerprint()
+    try {
+      let fingerprintData = await getFingerprint()
 
-    if (existingFingerprint) {
-      runInAction(() => {
-        this.fingerprint = Object.assign(this.createEmptyFingerprint(), existingFingerprint)
-      })
-    } else if (createIfMissing) {
-      await this.generateFingerprint()
-    }
+      // fingerprintHash уже есть
+      if (fingerprintData?.fingerprintHash) {
+        if (fingerprintData.isSaved) {
+          if (navigate) navigate(urlPage.Walkman)
+          return
+        } else {
+          await this.rootStore.authStore.anonymousRegistration(fingerprintData)
+          // если успешно, ставим isSaved=true
+          fingerprintData.isSaved = true
+          await saveFingerprint(this.sanitizeFingerprint(fingerprintData))
 
-    runInAction(() => {
-      this.loading = false
-      if (!this.fingerprint.fingerprintHash && navigate) {
-        navigate(urlPage.Index)
+          if (navigate) navigate(urlPage.Walkman)
+        }
+      } else {
+        // fingerprintHash нет => генерируем
+        await this.generateFingerprint()
+        fingerprintData = this.fingerprint
+
+        await this.rootStore.authStore.anonymousRegistration(fingerprintData)
+        fingerprintData.isSaved = true
+        await saveFingerprint(this.sanitizeFingerprint(fingerprintData))
+        if (navigate) navigate(urlPage.Walkman)
       }
-    })
+    } catch (error) {
+      console.error('Ошибка регистрации анонимного пользователя:', error)
+    } finally {
+      this.loading = false
+    }
   }
 
+  // Метод для получения хэша (SHA-256) на основе текущих данных fingerprint
   private async hashFingerprint(): Promise<string> {
     const encoder = new TextEncoder()
     const data = encoder.encode(JSON.stringify(this.fingerprint))
     const hashBuffer = await window.crypto.subtle.digest('SHA-256', data)
-    return Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, '0')).join('')
+    return Array.from(new Uint8Array(hashBuffer))
+      .map((byte) => byte.toString(16).padStart(2, '0'))
+      .join('')
   }
 }
 
