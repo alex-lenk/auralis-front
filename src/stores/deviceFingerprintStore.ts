@@ -232,6 +232,10 @@ class DeviceFingerprintStore {
       .map((byte) => byte.toString(16).padStart(2, '0'))
       .join('')
   }
+
+  get getFingerprint(): string {
+    return this.rootStore.deviceFingerprintStore?.fingerprint?.fingerprintHash || ''
+  }
 }
 
 export default DeviceFingerprintStore

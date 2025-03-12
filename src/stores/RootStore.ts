@@ -12,9 +12,9 @@ export class RootStore {
   themeToggleStore: ThemeToggleStore
 
   constructor() {
-    this.audioStore = new AudioStore(this)
-    this.authStore = new AuthStore(this)
     this.deviceFingerprintStore = new DeviceFingerprintStore(this)
+    this.authStore = new AuthStore(this)
+    this.audioStore = new AudioStore(this)
     this.languageStore = new LanguageStore(this)
     this.themeToggleStore = new ThemeToggleStore(this)
   }

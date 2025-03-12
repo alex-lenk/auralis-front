@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { observer } from 'mobx-react-lite'
-import { Loader, Play, Pause, Volume2, VolumeOff } from 'lucide-react'
+import { Loader } from 'lucide-react'
 
 import { useStore } from '@/stores/StoreContext'
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { urlPage } from '@/shared/enum/urlPage'
-import { Button } from '@/components/ui/Button'
-import { Slider } from '@/components/ui/Slider'
+import Player from '@/modules/Player'
 
 const Walkman = observer(() => {
-  const { deviceFingerprintStore, audioStore } = useStore()
+  const { deviceFingerprintStore } = useStore()
   const navigate = useNavigate()
 
   useDocumentTitle('Play: Focus - Auralis: где звук встречается с безмятежностью')
@@ -32,7 +31,7 @@ const Walkman = observer(() => {
   if (deviceFingerprintStore.loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader className="animate-spin" size={48} />
+        <Loader className="animate-spin" size={ 48 } />
       </div>
     )
   }
@@ -44,30 +43,7 @@ const Walkman = observer(() => {
         <p className="text-sm text-gray-500">Your ID: { deviceFingerprintStore.fingerprint.fingerprintHash }</p>
       </div>
 
-      <div className="flex space-x-4 mb-6">
-        <Button variant="default" className="px-4 py-2">Focus</Button>
-        <Button variant="secondary" className="px-4 py-2">Relax</Button>
-      </div>
-
-      <div className="flex flex-wrap justify-between items-center w-full max-w-xl space-y-4">
-        <Button variant="secondary" size="lg" onClick={ () => audioStore.togglePlay() }>
-          { audioStore.isPlaying ? <Pause size={ 32 } /> : <Play size={ 32 } /> }
-        </Button>
-
-        <div className="flex items-center space-x-4">
-          <Button variant="secondary" onClick={ () => audioStore.toggleMute() }>
-            { audioStore.isMuted ? <VolumeOff size={ 24 } /> : <Volume2 size={ 24 } /> }
-          </Button>
-
-          <Slider
-            className="w-32"
-            defaultValue={ [audioStore.volume] }
-            max={ 100 }
-            step={ 1 }
-            onValueChange={ (v) => audioStore.setVolume(v[0]) }
-          />
-        </div>
-      </div>
+      <Player />
     </div>
   )
 })
