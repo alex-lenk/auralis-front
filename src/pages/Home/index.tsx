@@ -1,3 +1,4 @@
+// src/pages/Home
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { observer } from 'mobx-react-lite'

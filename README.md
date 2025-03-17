@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# React v19 + TypeScript v5 + Vite v6 + mobx v6
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

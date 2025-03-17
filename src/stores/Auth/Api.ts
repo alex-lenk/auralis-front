@@ -1,7 +1,7 @@
 // src/stores/Auth/Api.ts
 import axios from 'axios';
 
-export const ApiBaseUrl = import.meta.env.VITE_CURRENT_ENV === 'dev'
+export const ApiBaseUrl = import.meta.env.VITE_CURRENT_ENV === 'develop'
   ? `http://${import.meta.env.VITE_API_BASE_URL}`
   : `https://${import.meta.env.VITE_API_BASE_URL}`;
 

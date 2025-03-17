@@ -7,7 +7,7 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    port: 7382,
+    port: 7250,
   },
   plugins: [
     react(),
@@ -18,5 +18,12 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        hashCharacters: 'base36'
+      },
+    },
   },
 });

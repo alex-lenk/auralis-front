@@ -1,3 +1,4 @@
+// src/stores/audioStore.ts
 import AudioStore from '@/stores/audioStore'
 import AuthStore from '@/stores/Auth/AuthStore'
 import DeviceFingerprintStore from '@/stores/deviceFingerprintStore'

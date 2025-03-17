@@ -70,12 +70,14 @@ export interface IFingerprintData {
   isSaved: boolean;
 }
 
+// убрать из всех constructor все лишнее, и грузиться будет только makeAutoObservable.
+
 class DeviceFingerprintStore {
   fingerprint: IFingerprintData
   loading: boolean = true
   isFingerprintLoaded: boolean = false
 
-  constructor(protected rootStore: RootStore) {
+  constructor(private rootStore: RootStore) {
     makeAutoObservable(this)
     this.fingerprint = this.createEmptyFingerprint()
   }
