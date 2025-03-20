@@ -17,8 +17,9 @@ export const initDB = async () => {
 };
 
 export const saveFingerprint = async (fingerprint: IFingerprintData) => {
+  const sanitized = JSON.parse(JSON.stringify(fingerprint));
   const db = await initDB();
-  await db.put(STORE_NAME, fingerprint, 'deviceFingerprint');
+  await db.put(STORE_NAME, sanitized, 'deviceFingerprint');
 };
 
 export const getFingerprint = async (): Promise<IFingerprintData | undefined> => {

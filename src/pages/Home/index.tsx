@@ -38,7 +38,8 @@ const Home = observer(() => {
         onClick={ handleButtonClick }
         disabled={ loading }
       >
-        { loading ? <Loader className="animate-spin" size={ 24 } /> : t('homePage.textButton') }
+        { t('homePage.textButton') }
+        { loading && <Loader className="animate-spin" size={ 24 } /> }
       </Button>
     </div>
   )

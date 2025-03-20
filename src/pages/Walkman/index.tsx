@@ -9,7 +9,7 @@ import { urlPage } from '@/shared/enum/urlPage'
 import Player from '@/modules/Player'
 
 const Walkman = observer(() => {
-  const { deviceFingerprintStore } = useStore()
+  const { deviceFingerprintStore, audioStore } = useStore()
   const navigate = useNavigate()
 
   useDocumentTitle('Play: Focus - Auralis: где звук встречается с безмятежностью')
@@ -22,11 +22,13 @@ const Walkman = observer(() => {
 
       if (!deviceFingerprintStore.fingerprint.fingerprintHash) {
         navigate(urlPage.Index)
+      } else {
+        await audioStore.initialize()
       }
     }
 
     checkFingerprint()
-  }, [deviceFingerprintStore, navigate])
+  }, [deviceFingerprintStore, navigate, audioStore])
 
   if (deviceFingerprintStore.loading) {
     return (

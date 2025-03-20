@@ -5,7 +5,6 @@ import '@/App/app.css'
 import '@/i18n'
 import Header from '@/modules/Header'
 import Footer from '@/components/Footer'
-import StorageConsent from '@/components/StorageConsent'
 
 const App = () => {
   return (
@@ -13,7 +12,6 @@ const App = () => {
       <Header />
       <Outlet />
       <Footer />
-      <StorageConsent />
     </main>
   )
 }

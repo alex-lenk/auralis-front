@@ -113,11 +113,6 @@ class DeviceFingerprintStore {
     }
   }
 
-  // Чтобы лишние объекты/методы не попадали в IndexedDB
-  private sanitizeFingerprint(fingerprint: IFingerprintData): IFingerprintData {
-    return JSON.parse(JSON.stringify(fingerprint))
-  }
-
   // Генерация нового fingerprint, сохранение в IndexedDB (isSaved = false)
   async generateFingerprint() {
     const [
@@ -159,7 +154,7 @@ class DeviceFingerprintStore {
     }
 
     // Сохраняем в IndexedDB с isSaved = false
-    await saveFingerprint(this.sanitizeFingerprint(newFingerprint))
+    await saveFingerprint(newFingerprint)
 
     runInAction(() => {
       this.fingerprint = newFingerprint
@@ -193,6 +188,8 @@ class DeviceFingerprintStore {
     })
 
     try {
+      // await new Promise((resolve) => setTimeout(resolve, 5000));
+
       let fingerprintData = await getFingerprint()
 
       // fingerprintHash уже есть
@@ -204,7 +201,7 @@ class DeviceFingerprintStore {
           await this.rootStore.authStore.anonymousRegistration(fingerprintData)
           // если успешно, ставим isSaved=true
           fingerprintData.isSaved = true
-          await saveFingerprint(this.sanitizeFingerprint(fingerprintData))
+          await saveFingerprint(fingerprintData)
 
           if (navigate) navigate(urlPage.Walkman)
         }
@@ -214,8 +211,10 @@ class DeviceFingerprintStore {
         fingerprintData = this.fingerprint
 
         await this.rootStore.authStore.anonymousRegistration(fingerprintData)
+
         fingerprintData.isSaved = true
-        await saveFingerprint(this.sanitizeFingerprint(fingerprintData))
+        await saveFingerprint(fingerprintData)
+
         if (navigate) navigate(urlPage.Walkman)
       }
     } catch (error) {

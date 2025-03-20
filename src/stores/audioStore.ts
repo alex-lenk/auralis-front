@@ -12,14 +12,20 @@ class AudioStore {
   hls: Hls | null = null
   audio = new Audio()
   fingerprint = this.rootStore.deviceFingerprintStore.getFingerprint
+  isInitialized = false
 
   constructor(private rootStore: RootStore) {
     makeAutoObservable(this)
+  }
+
+  async initialize() {
+    if (this.isInitialized) return
 
     this.audio.volume = this.volume / 100
-    this.initHLS()
+    await this.initHLS()
+    await this.loadFingerprint()
 
-    this.loadFingerprint()
+    this.isInitialized = true
   }
 
   async initHLS() {
@@ -32,7 +38,6 @@ class AudioStore {
 
     this.hls.attachMedia(this.audio)
     this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      console.log('HLS Manifest загружен')
       // НЕ автозапускаем, ждем вызова togglePlay()
     })
   }
@@ -53,10 +58,22 @@ class AudioStore {
   }
 
   updatePlaylist() {
-    if (!this.hls) return
+    if (!this.hls) {
+      console.error('HLS не инициализирован');
+      return;
+    }
 
-    console.log('Обновление плейлиста:', this.getPlaylistUrl())
-    this.hls.loadSource(this.getPlaylistUrl())
+    const playlistUrl = this.getPlaylistUrl();
+    if (!playlistUrl) {
+      console.error('Не удалось получить URL плейлиста');
+      return;
+    }
+
+    this.hls.loadSource(playlistUrl);
+
+    this.hls.on(Hls.Events.ERROR, (_event, data) => {
+      console.error('Ошибка при загрузке плейлиста:', data);
+    });
   }
 
   togglePlay() {
@@ -84,8 +101,15 @@ class AudioStore {
 
   setMode(mode: musicMode) {
     if (this.mode !== mode) {
-      this.mode = mode
-      this.updatePlaylist()
+      const wasPlaying = this.isPlaying; // Сохраняем состояние воспроизведения
+      this.mode = mode;
+
+      if (wasPlaying) {
+        this.updatePlaylist(); // Обновляем плейлист
+        this.togglePlay(); // Запускаем воспроизведение, если музыка играла
+      } else {
+        this.updatePlaylist(); // Просто обновляем плейлист, если музыка не играла
+      }
     }
   }
 
