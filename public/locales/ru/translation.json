@@ -1,4 +1,18 @@
 {
+  "musicMode": {
+    "focus": "Фокус",
+    "alanwatts": "Алан Уоттс",
+    "grimes": "Граймс",
+    "jamesblake": "Джеймс Блейк",
+    "plastikman": "Пластикмэн",
+    "recovery": "Восстановление",
+    "relax": "Расслабление",
+    "sleep": "Сон",
+    "sleep_rain": "Дождь для сна",
+    "spatial_orbit": "Орбита",
+    "study": "Учёба",
+    "wintersleep": "Зимний сон"
+  },
   "error": {
     "404": {
       "title": "404",

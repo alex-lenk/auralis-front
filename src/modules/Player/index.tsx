@@ -1,24 +1,32 @@
 import { observer } from 'mobx-react-lite'
+import cn from 'classnames';
+import { useTranslation } from 'react-i18next'
 import { Pause, Play, Volume2, VolumeOff } from 'lucide-react'
+
 import { useStore } from '@/stores/StoreContext'
 import { musicMode } from '@/shared/enum/playlist'
+import { musicModeToIcon } from '@/shared/mapping/musicModeToIcon'
+import Sprite from '@/shared/ui/Sprite'
 import { Button } from '@/components/ui/Button'
 import { Slider } from '@/components/ui/Slider'
+import styles from './styles.module.scss';
 
 const Player = observer(() => {
   const { audioStore } = useStore()
+  const { t } = useTranslation()
 
   return (
     <>
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className={cn(styles.modeList, 'flex flex-wrap mb-6')}>
         { Object.values(musicMode).map(instance => (
           <Button
             key={ instance }
-            variant={ audioStore.mode === instance ? 'default' : 'secondary' }
-            className="px-4 py-2"
+            variant={ 'ghost' }
+            className={cn(styles.modeItem, audioStore.mode === instance && styles.modeActive)}
             onClick={ () => audioStore.setMode(instance) }
           >
-            { instance.charAt(0).toUpperCase() + instance.slice(1).replace('_', ' ') }
+            <Sprite className={styles.modeIcon} icon={musicModeToIcon[instance]} />
+            { t(`musicMode.${instance}`) }
           </Button>
         )) }
       </div>

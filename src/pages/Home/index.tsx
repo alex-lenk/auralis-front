@@ -10,8 +10,8 @@ import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
 
 const Home = observer(() => {
-  useDocumentTitle('Auralis - где звук встречается с безмятежностью')
   const { t } = useTranslation()
+  useDocumentTitle('Auralis - где звук встречается с безмятежностью')
   const navigate = useNavigate()
   const { deviceFingerprintStore } = useStore()
   const [loading, setLoading] = useState(false)

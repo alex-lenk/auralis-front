@@ -1,0 +1,23 @@
+@use '@/styles/variables/include-media' as *;
+
+.modeList {}
+
+.modeItem {
+  --fill: gray;
+  --color: gray;
+  font-size: 14px;
+  color: var(--color);
+  flex-direction: column;
+}
+
+.modeActive {
+  --fill: #fff;
+  --color: #fff;
+}
+
+.modeIcon {
+  width: 48px;
+  height: 48px;
+  fill: var(--fill);
+  flex-shrink: 0;
+}

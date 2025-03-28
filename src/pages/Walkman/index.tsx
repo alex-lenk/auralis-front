@@ -42,7 +42,7 @@ const Walkman = observer(() => {
     <div className="container mx-auto mt-auto flex flex-col items-center justify-center p-6 text-center">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Focus</h1>
-        <p className="text-sm text-gray-500">Your ID: { deviceFingerprintStore.fingerprint.fingerprintHash }</p>
+        {/*<p className="text-sm text-gray-500">Your ID: { deviceFingerprintStore.fingerprint.fingerprintHash }</p>*/}
       </div>
 
       <Player />

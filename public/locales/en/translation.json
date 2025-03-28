@@ -1,4 +1,18 @@
 {
+  "musicMode": {
+    "focus": "Focus",
+    "alanwatts": "Alan Watts",
+    "grimes": "Grimes",
+    "jamesblake": "James Blake",
+    "plastikman": "Plastikman",
+    "recovery": "Recovery",
+    "relax": "Relax",
+    "sleep": "Sleep",
+    "sleep_rain": "Sleep Rain",
+    "spatial_orbit": "Spatial Orbit",
+    "study": "Study",
+    "wintersleep": "Winter Sleep"
+  },
   "error": {
     "404": {
       "title": "404",
