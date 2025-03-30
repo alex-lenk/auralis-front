@@ -1,11 +1,6 @@
 # React v19 + TypeScript v5 + Vite v6 + mobx v6
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Invoke-WebRequest -Method HEAD -Headers @{"Origin" = "http://localhost"} -Uri "https://cdn.alexlenk.ru/audio/wintersleep/wintersleep_60s_0000.aac"
 
 ## Expanding the ESLint configuration
 
