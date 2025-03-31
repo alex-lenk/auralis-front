@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import { observer } from 'mobx-react-lite'
 import { Loader } from 'lucide-react'
 
-import { useStore } from '@/stores/StoreContext'
+import { useStore } from '@/App/providers/StoreContext'
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { urlPage } from '@/shared/enum/urlPage'
 import Player from '@/modules/Player'

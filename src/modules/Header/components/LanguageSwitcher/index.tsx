@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { Globe } from 'lucide-react'
 
-import { useStore } from '@/stores/StoreContext'
+import { useStore } from '@/App/providers/StoreContext'
 import { Button } from '@/components/ui/Button'
 
 const LanguageSwitcher = observer(() => {
