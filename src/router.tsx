@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 
 import App from '@/App'
-import ErrorBoundary from '@/App/providers/ErrorBoundary'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import { urlPage } from '@/shared/enum/urlPage'
 import Home from '@/pages/Home'
 import Walkman from '@/pages/Walkman'

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 import { Loader } from 'lucide-react'
 
-import { useStore } from '@/App/providers/StoreContext'
+import useStore from '@/stores/StoreContext'
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
 

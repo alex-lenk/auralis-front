@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next'
 import { Pause, Play, Volume2, VolumeOff } from 'lucide-react'
 
-import { useStore } from '@/App/providers/StoreContext'
+import useStore from '@/stores/StoreContext'
 import { musicMode } from '@/shared/enum/playlist'
 import { musicModeToIcon } from '@/shared/mapping/musicModeToIcon'
 import Sprite from '@/shared/ui/Sprite'

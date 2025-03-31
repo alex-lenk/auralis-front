@@ -1,4 +1,5 @@
-// src/stores/audioStore.ts
+// src/stores/RootStore.ts
+import { makeObservable } from 'mobx'
 import AudioStore from '@/stores/audioStore'
 import AuthStore from '@/stores/Auth/AuthStore'
 import DeviceFingerprintStore from '@/stores/deviceFingerprintStore'
@@ -18,6 +19,14 @@ export class RootStore {
     this.audioStore = new AudioStore(this)
     this.languageStore = new LanguageStore(this)
     this.themeToggleStore = new ThemeToggleStore(this)
+
+    makeObservable(this, {
+      audioStore: true,
+      authStore: true,
+      deviceFingerprintStore: true,
+      languageStore: true,
+      themeToggleStore: true,
+    })
   }
 }
 

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { Moon, Sun } from 'lucide-react'
 
-import { useStore } from '@/App/providers/StoreContext'
+import useStore from '@/stores/StoreContext'
 import { Button } from '@/components/ui/Button'
 
 const ThemeToggle = observer(() => {
