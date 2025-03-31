@@ -1,7 +1,6 @@
 // src/shared/lib/indexedDB.ts
 import { openDB } from 'idb'
-
-import { IFingerprintData } from '@/stores/deviceFingerprintStore'
+import { IFingerprintData } from '@/shared/types/Fingerprint'
 
 const DB_NAME = 'deviceFingerprintDB'
 const STORE_NAME = 'fingerprint'

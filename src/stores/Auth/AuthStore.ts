@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import api from '@/stores/Auth/Api'
 import { RootStore } from '@/stores/RootStore'
-import { IFingerprintData } from '@/stores/deviceFingerprintStore'
+import { IFingerprintData } from '@/shared/types/Fingerprint'
 
 class AuthStore {
   loading: boolean = false
