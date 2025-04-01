@@ -1,6 +1,7 @@
 // src/stores/deviceFingerprintStore.ts
 import { makeAutoObservable, runInAction } from 'mobx'
 import { NavigateFunction } from 'react-router'
+import { AxiosError } from 'axios'
 
 import { RootStore } from '@/stores/RootStore'
 import { urlPage } from '@/shared/enum/urlPage'
@@ -34,6 +35,7 @@ class DeviceFingerprintStore {
   fingerprint: IFingerprintData
   loading: boolean = true
   isFingerprintLoaded: boolean = false
+  error: string | null = null
 
   constructor(private rootStore: RootStore) {
     makeAutoObservable(this)
@@ -143,6 +145,7 @@ class DeviceFingerprintStore {
   async handleAnonymousRegistration(navigate?: NavigateFunction) {
     runInAction(() => {
       this.loading = true
+      this.error = null
     })
 
     try {
@@ -150,35 +153,47 @@ class DeviceFingerprintStore {
 
       let fingerprintData = await getFingerprint()
 
-      // fingerprintHash уже есть
       if (fingerprintData?.fingerprintHash) {
         if (fingerprintData.isSaved) {
-          if (navigate) navigate(urlPage.Walkman)
+          navigate?.(urlPage.Walkman)
           return
         } else {
           await this.rootStore.authStore.anonymousRegistration(fingerprintData)
-          // если успешно, ставим isSaved=true
+
           fingerprintData.isSaved = true
+
           await saveFingerprint(fingerprintData)
 
-          if (navigate) navigate(urlPage.Walkman)
+          navigate?.(urlPage.Walkman)
         }
       } else {
-        // fingerprintHash нет => генерируем
         await this.generateFingerprint()
+
         fingerprintData = this.fingerprint
 
         await this.rootStore.authStore.anonymousRegistration(fingerprintData)
 
         fingerprintData.isSaved = true
+
         await saveFingerprint(fingerprintData)
 
-        if (navigate) navigate(urlPage.Walkman)
+        navigate?.(urlPage.Walkman)
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Ошибка регистрации анонимного пользователя:', error)
+
+      let message = 'Что-то пошло не так. Попробуйте позже.'
+      if (error instanceof AxiosError && error.code === 'ERR_NETWORK') {
+        message = 'Музыкальный сервис недоступен. Проверьте соединение или попробуйте позже.'
+      }
+
+      runInAction(() => {
+        this.error = message
+      })
     } finally {
-      this.loading = false
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
@@ -193,7 +208,7 @@ class DeviceFingerprintStore {
   }
 
   get getFingerprint(): string {
-    return this.rootStore.deviceFingerprintStore?.fingerprint?.fingerprintHash || ''
+    return this.fingerprint?.fingerprintHash || ''
   }
 }
 

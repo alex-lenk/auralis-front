@@ -11,21 +11,27 @@ class AudioStore {
   mode: musicMode = musicMode.Focus
   hls: Hls | null = null
   audio = new Audio()
-  fingerprint = this.rootStore.deviceFingerprintStore.getFingerprint
+  fingerprint: string | null = null
   isInitialized = false
+  error: string | null = null
 
   constructor(private rootStore: RootStore) {
     makeAutoObservable(this)
   }
 
   async initialize() {
-    if (this.isInitialized) return
+    try {
+      if (this.isInitialized) return
 
-    this.audio.volume = this.volume / 100
-    await this.initHLS()
-    await this.loadFingerprint()
+      this.audio.volume = this.volume / 100
+      await this.initHLS()
+      await this.loadFingerprint()
 
-    this.isInitialized = true
+      this.isInitialized = true
+    } catch (error) {
+      this.setError('Не удалось инициализировать аудиоплеер')
+      throw error
+    }
   }
 
   async initHLS() {
@@ -59,21 +65,21 @@ class AudioStore {
 
   updatePlaylist() {
     if (!this.hls) {
-      console.error('HLS не инициализирован');
-      return;
+      console.error('HLS не инициализирован')
+      return
     }
 
-    const playlistUrl = this.getPlaylistUrl();
+    const playlistUrl = this.getPlaylistUrl()
     if (!playlistUrl) {
-      console.error('Не удалось получить URL плейлиста');
-      return;
+      console.error('Не удалось получить URL плейлиста')
+      return
     }
 
-    this.hls.loadSource(playlistUrl);
+    this.hls.loadSource(playlistUrl)
 
     this.hls.on(Hls.Events.ERROR, (_event, data) => {
-      console.error('Ошибка при загрузке плейлиста:', data);
-    });
+      console.error('Ошибка при загрузке плейлиста:', data)
+    })
   }
 
   togglePlay() {
@@ -101,25 +107,30 @@ class AudioStore {
 
   setMode(mode: musicMode) {
     if (this.mode !== mode) {
-      const wasPlaying = this.isPlaying; // Сохраняем состояние воспроизведения
-      this.mode = mode;
+      const wasPlaying = this.isPlaying // Сохраняем состояние воспроизведения
+      this.mode = mode
 
       if (wasPlaying) {
-        this.updatePlaylist(); // Обновляем плейлист
-        this.togglePlay(); // Запускаем воспроизведение, если музыка играла
+        this.updatePlaylist() // Обновляем плейлист
+        this.togglePlay() // Запускаем воспроизведение, если музыка играла
       } else {
-        this.updatePlaylist(); // Просто обновляем плейлист, если музыка не играла
+        this.updatePlaylist() // Просто обновляем плейлист, если музыка не играла
       }
     }
   }
 
   private async loadFingerprint() {
     await this.rootStore.deviceFingerprintStore.loadFingerprint()
-    this.fingerprint = this.rootStore.deviceFingerprintStore.fingerprint.fingerprintHash
+    this.fingerprint = this.rootStore.deviceFingerprintStore.getFingerprint
 
     if (!this.fingerprint) {
       console.error('Ошибка: fingerprint не загружен')
     }
+  }
+
+  private setError(message: string) {
+    this.error = message
+    setTimeout(() => this.error = null, 5000) // Автоматическое очищение через 5 сек
   }
 }
 

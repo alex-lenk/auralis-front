@@ -11,10 +11,11 @@ import { Button } from '@/components/ui/Button'
 
 const Home = observer(() => {
   const { t } = useTranslation()
-  useDocumentTitle('Auralis - где звук встречается с безмятежностью')
   const navigate = useNavigate()
   const { deviceFingerprintStore } = useStore()
   const [loading, setLoading] = useState(false)
+
+  useDocumentTitle('Auralis - где звук встречается с безмятежностью')
 
   const handleButtonClick = async () => {
     setLoading(true)
@@ -30,6 +31,10 @@ const Home = observer(() => {
         className="mb-7 text-gray-400 w-2/5 text-lg"
         dangerouslySetInnerHTML={ { __html: t('homePage.subtitle') } }
       />
+
+      { deviceFingerprintStore.error && (
+        <p className="text-red-500 mt-4 mb-6">{ deviceFingerprintStore.error }</p>
+      ) }
 
       <Button
         size="xl"
