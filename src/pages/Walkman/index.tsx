@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 import { Loader } from 'lucide-react'
 
 import useStore from '@/stores/StoreContext'
@@ -11,6 +12,7 @@ import Player from '@/modules/Player'
 const Walkman = observer(() => {
   const { deviceFingerprintStore, audioStore } = useStore()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   useDocumentTitle('Play: Focus - Auralis: где звук встречается с безмятежностью')
 
@@ -39,10 +41,10 @@ const Walkman = observer(() => {
   }
 
   return (
-    <div className="container mx-auto mt-auto flex flex-col items-center justify-center p-6 text-center">
+    <div className="container mx-auto mt-auto flex flex-col items-center justify-center p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Focus</h1>
-        {/*<p className="text-sm text-gray-500">Your ID: { deviceFingerprintStore.fingerprint.fingerprintHash }</p>*/ }
+
+        <h1 className="text-2xl font-bold">{t(`musicMode.${audioStore.mode}`)}</h1>
       </div>
 
       <Player />

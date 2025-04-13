@@ -1,6 +1,15 @@
 @use '@/styles/variables/include-media' as *;
 
-.modeList {}
+.modeDecor {
+  height: 400px;
+}
+
+.modeList {
+  margin-bottom: 32px;
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+}
 
 .modeItem {
   --fill: gray;
@@ -20,4 +29,29 @@
   height: 48px;
   fill: var(--fill);
   flex-shrink: 0;
+}
+
+.control {
+  &::before {
+    width: 192px;
+    display: block;
+    content: '';
+  }
+
+  @include media('>=1440px') {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.controlBox {
+  margin-left: auto;
+  margin-right: auto;
+  @include media('>=1200px') {
+  }
+}
+
+.controlIcon {
+  width: 24px;
+  height: 24px;
 }

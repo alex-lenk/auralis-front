@@ -1,18 +1,22 @@
 import { NavLink } from 'react-router'
+import cn from 'classnames'
 
 import { urlPage } from '@/shared/enum/urlPage'
 import ThemeToggle from '@/modules/Header/components/ThemeToggle'
 import LanguageSwitcher from '@/modules/Header/components/LanguageSwitcher'
 // import { Button } from '@/components/ui/Button'
+import styles from './styles.module.scss'
 
 const Header = () => {
   return (
     <header className="container mx-auto flex items-center justify-between shrink-0 p-4">
-      <NavLink to={ urlPage.Index } className="flex items-center">
+      <NavLink to={ urlPage.Index } className={ cn(styles.logo, 'flex items-center') }>
         <img
-          src="/assets/img/logo/logo-ico.svg"
+          className={styles.logoImg}
+          src="/assets/img/logo/logo-auralis.svg"
           alt="Auralis"
         />
+        <span className={cn(styles.logoName)}>Auralis</span>
       </NavLink>
 
       <div className="flex items-center gap-4 ms-auto">
