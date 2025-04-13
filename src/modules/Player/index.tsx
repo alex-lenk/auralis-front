@@ -1,5 +1,7 @@
+// src/modules/Player/index.tsx
+
 import { observer } from 'mobx-react-lite'
-import cn from 'classnames';
+import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { Pause, Play, Volume2, VolumeOff } from 'lucide-react'
 
@@ -9,7 +11,7 @@ import { musicModeToIcon } from '@/shared/mapping/musicModeToIcon'
 import Sprite from '@/shared/ui/Sprite'
 import { Button } from '@/components/ui/Button'
 import { Slider } from '@/components/ui/Slider'
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 const Player = observer(() => {
   const { audioStore } = useStore()
@@ -17,21 +19,30 @@ const Player = observer(() => {
 
   return (
     <>
-      <div className={cn(styles.modeList, 'flex flex-wrap mb-6')}>
+      <div className={ cn(styles.modeList, 'flex flex-wrap mb-6') }>
         { Object.values(musicMode).map(instance => (
           <Button
             key={ instance }
-            variant={ 'ghost' }
-            className={cn(styles.modeItem, audioStore.mode === instance && styles.modeActive)}
+            variant="ghost"
+            className={ cn(styles.modeItem, audioStore.mode === instance && styles.modeActive) }
             onClick={ () => audioStore.setMode(instance) }
           >
-            <Sprite className={styles.modeIcon} icon={musicModeToIcon[instance]} />
-            { t(`musicMode.${instance}`) }
+            <Sprite className={ styles.modeIcon } icon={ musicModeToIcon[instance] } />
+            { t(`musicMode.${ instance }`) }
           </Button>
         )) }
       </div>
 
       <div className="flex flex-wrap justify-between items-center w-full max-w-xl space-y-4">
+        {/* Кнопка «Обновить список» → nextSegment() */ }
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={ () => audioStore.nextSegment() }
+        >
+          Обновить список
+        </Button>
+
         <Button variant="secondary" size="lg" onClick={ () => audioStore.togglePlay() }>
           { audioStore.isPlaying ? <Pause size={ 32 } /> : <Play size={ 32 } /> }
         </Button>

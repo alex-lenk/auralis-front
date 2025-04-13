@@ -128,8 +128,8 @@ export const getLanguageSettings = (): { primaryLanguage: string; availableLangu
   return {
     primaryLanguage: navigator.language,
     availableLanguages: navigator.languages,
-  };
-};
+  }
+}
 
 /**
  * Возвращает временную зону устройства.
@@ -172,26 +172,56 @@ export const getCanvasFingerprint = (): string => {
 }
 
 /**
- * Возвращает локальные IP-адреса через WebRTC.
+ * Безопасное получение IP-адресов через WebRTC.
+ * Возвращает ['0.0.0.0'] при ошибке или таймауте.
  */
 export const getWebRTCIPs = async (): Promise<string[]> => {
   return new Promise((resolve) => {
-    const ips: string[] = []
-    const pc = new RTCPeerConnection({ iceServers: [] })
+    const ips = new Set<string>()
+    let isResolved = false
 
-    pc.createDataChannel('')
-    pc.createOffer()
-      .then((offer) => pc.setLocalDescription(offer))
-      .catch(() => {
+    try {
+      const pc = new RTCPeerConnection({
+        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
       })
 
-    pc.onicecandidate = (event) => {
-      if (!event.candidate) {
-        resolve(ips)
-        return
+      pc.createDataChannel('dummy')
+
+      pc.onicecandidate = (event) => {
+        if (!event.candidate && !isResolved) {
+          isResolved = true
+          pc.close()
+          resolve(ips.size ? [...ips] : ['0.0.0.0'])
+        }
+
+        const ipRegex = /([0-9]{1,3}(?:\.[0-9]{1,3}){3})|([a-f0-9:]+:+[a-f0-9]+)/i
+        const match = event?.candidate?.candidate?.match(ipRegex)
+        if (match) {
+          const ip = match[1] || match[2]
+          if (ip) ips.add(ip)
+        }
       }
-      const ip = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(event.candidate.candidate)?.[1]
-      if (ip) ips.push(ip)
+
+      // fallback через 2 секунды (таймаут)
+      setTimeout(() => {
+        if (!isResolved) {
+          isResolved = true
+          pc.close()
+          resolve(ips.size ? [...ips] : ['0.0.0.0'])
+        }
+      }, 2000)
+
+      pc.createOffer()
+        .then(offer => pc.setLocalDescription(offer))
+        .catch(() => {
+          if (!isResolved) {
+            isResolved = true
+            pc.close()
+            resolve(['0.0.0.0'])
+          }
+        })
+    } catch {
+      resolve(['0.0.0.0'])
     }
   })
 }
@@ -206,19 +236,19 @@ interface NavigatorWithBattery extends Navigator {
 export const getBatteryStatus = async (): Promise<
   { level: number; charging: boolean; chargingTime: number; dischargingTime: number } | string
 > => {
-  if (!('getBattery' in navigator)) return 'Не поддерживается';
+  if (!('getBattery' in navigator)) return 'Не поддерживается'
   try {
-    const battery = await (navigator as NavigatorWithBattery).getBattery();
+    const battery = await (navigator as NavigatorWithBattery).getBattery()
     return {
       level: battery.level,
       charging: battery.charging,
       chargingTime: battery.chargingTime,
       dischargingTime: battery.dischargingTime,
-    };
+    }
   } catch {
-    return 'Ошибка при получении данных о батарее';
+    return 'Ошибка при получении данных о батарее'
   }
-};
+}
 
 /**
  * Проверяет, есть ли у устройства сенсорный экран.
@@ -250,12 +280,12 @@ interface NavigatorWithUserAgentData extends Navigator {
  * Возвращает информацию о платформе и устройстве.
  */
 export const getPlatformInfo = (): { platform: string; userAgentData: UserAgentData | string } => {
-  const navigatorWithData = navigator as NavigatorWithUserAgentData;
+  const navigatorWithData = navigator as NavigatorWithUserAgentData
   return {
     platform: navigatorWithData.userAgentData?.platform || navigator.platform,
     userAgentData: navigatorWithData.userAgentData || 'Не поддерживается',
-  };
-};
+  }
+}
 
 /**
  * Возвращает список доступных медиа-устройств.
@@ -280,18 +310,18 @@ export const getMediaDevices = async (): Promise<
  */
 export const getWebGLInfo = (): { version: string; shadingLanguageVersion: string; extensions: string[] } | string => {
   try {
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl') as WebGLRenderingContext | null;
-    if (!gl) return 'WebGL не поддерживается';
+    const canvas = document.createElement('canvas')
+    const gl = canvas.getContext('webgl') as WebGLRenderingContext | null
+    if (!gl) return 'WebGL не поддерживается'
     return {
       version: gl.getParameter(gl.VERSION),
       shadingLanguageVersion: gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
       extensions: gl.getSupportedExtensions() || [],
-    };
+    }
   } catch {
-    return 'Ошибка при получении информации о WebGL';
+    return 'Ошибка при получении информации о WebGL'
   }
-};
+}
 
 /**
  * Проверяет поддерживаемые аудио и видео кодеки.
