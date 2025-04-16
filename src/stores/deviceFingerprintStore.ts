@@ -1,4 +1,5 @@
 // src/stores/deviceFingerprintStore.ts
+
 import { makeAutoObservable, runInAction } from 'mobx'
 import { NavigateFunction } from 'react-router'
 import { AxiosError } from 'axios'
@@ -45,6 +46,7 @@ class DeviceFingerprintStore {
   // Создаём пустую структуру для fingerprint
   private createEmptyFingerprint(): IFingerprintData {
     return {
+      deviceId: '',
       userData: {
         os: '',
         architecture: '',
@@ -57,9 +59,12 @@ class DeviceFingerprintStore {
         languageSettings: { primaryLanguage: '', availableLanguages: [] },
         timeZone: '',
         canvasFingerprint: '',
+        webRTCIPs: [],
+        batteryStatus: undefined,
         touchScreen: false,
         availableFonts: [],
         platformInfo: { platform: '', userAgentData: '' },
+        mediaDevices: [],
         webGLInfo: { version: '', shadingLanguageVersion: '', extensions: [] },
         supportedCodecs: {
           video: { h264: '', webm: '', ogg: '' },
@@ -75,41 +80,43 @@ class DeviceFingerprintStore {
 
   // Генерация нового fingerprint, сохранение в IndexedDB (isSaved = false)
   async generateFingerprint() {
-    const [
-      webRTCIPs,
-      batteryStatus,
-      mediaDevices,
-    ] = await Promise.all([
+    const [webRTCIPs, batteryStatus, mediaDevices, deviceId] = await Promise.all([
       getWebRTCIPs(),
       getBatteryStatus(),
       getMediaDevices(),
+      this.getOrCreateDeviceId(),
     ])
 
+    const userData = {
+      os: getOsName(),
+      architecture: getArchitecture(),
+      gpuAcceleration: getGpuAcceleration(),
+      screenResolution: getScreenResolution(),
+      devicePixelRatio: getDevicePixelRatio(),
+      cpuCores: getCpuCores(),
+      gpuDetails: getGpuDetails(),
+      browserInfo: getBrowserInfo(),
+      languageSettings: getLanguageSettings(),
+      timeZone: getTimeZone(),
+      canvasFingerprint: getCanvasFingerprint(),
+      webRTCIPs,
+      batteryStatus,
+      touchScreen: hasTouchScreen(),
+      availableFonts: getAvailableFonts(),
+      platformInfo: getPlatformInfo(),
+      mediaDevices,
+      webGLInfo: getWebGLInfo(),
+      supportedCodecs: getSupportedCodecs(),
+      apis: checkAPIs(),
+      sensors: checkSensors(),
+    }
+
+    const fingerprintHash = await this.hashFingerprint(userData)
+
     const newFingerprint: IFingerprintData = {
-      userData: {
-        os: getOsName(),
-        architecture: getArchitecture(),
-        gpuAcceleration: getGpuAcceleration(),
-        screenResolution: getScreenResolution(),
-        devicePixelRatio: getDevicePixelRatio(),
-        cpuCores: getCpuCores(),
-        gpuDetails: getGpuDetails(),
-        browserInfo: getBrowserInfo(),
-        languageSettings: getLanguageSettings(),
-        timeZone: getTimeZone(),
-        canvasFingerprint: getCanvasFingerprint(),
-        webRTCIPs,
-        batteryStatus,
-        touchScreen: hasTouchScreen(),
-        availableFonts: getAvailableFonts(),
-        platformInfo: getPlatformInfo(),
-        mediaDevices,
-        webGLInfo: getWebGLInfo(),
-        supportedCodecs: getSupportedCodecs(),
-        apis: checkAPIs(),
-        sensors: checkSensors(),
-      },
-      fingerprintHash: await this.hashFingerprint(),
+      deviceId,
+      userData,
+      fingerprintHash,
       isSaved: false,
     }
 
@@ -126,12 +133,9 @@ class DeviceFingerprintStore {
     this.loading = true
     try {
       const existingFingerprint = await getFingerprint()
-
-      if (existingFingerprint) {
-        runInAction(() => {
-          this.fingerprint = Object.assign(this.createEmptyFingerprint(), existingFingerprint)
-        })
-      }
+      runInAction(() => {
+        this.fingerprint = existingFingerprint || this.createEmptyFingerprint()
+      })
     } catch (error) {
       console.error('Ошибка загрузки отпечатка:', error)
     } finally {
@@ -198,17 +202,25 @@ class DeviceFingerprintStore {
   }
 
   // Метод для получения хэша (SHA-256) на основе текущих данных fingerprint
-  private async hashFingerprint(): Promise<string> {
+  private async hashFingerprint(userData: IFingerprintData['userData']): Promise<string> {
     const encoder = new TextEncoder()
-    const data = encoder.encode(JSON.stringify(this.fingerprint))
-    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data)
+    const data = encoder.encode(JSON.stringify(userData))
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data)
     return Array.from(new Uint8Array(hashBuffer))
       .map((byte) => byte.toString(16).padStart(2, '0'))
       .join('')
   }
 
-  get getFingerprint(): string {
-    return this.fingerprint?.fingerprintHash || ''
+  private async getOrCreateDeviceId(): Promise<string> {
+    const existingFingerprint = await getFingerprint()
+    if (existingFingerprint?.deviceId) {
+      return existingFingerprint.deviceId
+    }
+    return crypto.randomUUID()
+  }
+
+  get getDeviceId() {
+    return this.fingerprint.deviceId
   }
 }
 

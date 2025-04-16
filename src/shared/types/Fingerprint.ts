@@ -36,5 +36,6 @@ export interface IFingerprintData {
     };
   };
   fingerprintHash: string;
+  deviceId?: string
   isSaved: boolean;
 }

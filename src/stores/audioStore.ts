@@ -15,7 +15,7 @@ class AudioStore {
   volume = 75
   isMuted = false
   mode: musicMode = musicMode.Focus
-  fingerprint: string | null = null
+  deviceId: string | null = null
   startSegment = 0  // Хранит, с какого сегмента сейчас берём плейлист
   hls: Hls | null = null
   audio = new Audio()
@@ -31,7 +31,7 @@ class AudioStore {
     makeAutoObservable(this)
   }
 
-  // Инициализация: (1) Audio.volume (2) Hls.js (3) fingerprint
+  // Инициализация: (1) Audio.volume (2) Hls.js (3) deviceId
   async initialize() {
     if (this.isInitialized) return
 
@@ -42,7 +42,7 @@ class AudioStore {
       // инициализируем HLS
       await this.initHLS()
 
-      // грузим fingerprint устройства
+      // грузим deviceId устройства
       await this.loadFingerprint()
 
       this.isInitialized = true
@@ -66,7 +66,6 @@ class AudioStore {
 
     // Ждём, когда будет готов манифест
     this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      console.log('MANIFEST_PARSED: манифест загружен')
       // Не автозапускаем. Ждём togglePlay().
     })
 
@@ -78,17 +77,17 @@ class AudioStore {
 
   // Генерируем URL
   getPlaylistUrl(): string {
-    if (!this.fingerprint) {
-      console.error('Нет fingerprint, не можем получить плейлист')
+    if (!this.deviceId) {
+      console.error('Нет deviceId, не можем получить плейлист')
       return ''
     }
 
-    // Пример: /playlist/focus.m3u8?hour=...&fingerprint=...
+    // Пример: /playlist/focus.m3u8?hour=...&deviceId=...
     return api.getUri({
       url: `/playlist/${ this.mode }.m3u8`,
       params: {
         start: this.startSegment,
-        fingerprint: this.fingerprint,
+        deviceId: this.deviceId,
       },
     })
   }
@@ -217,9 +216,9 @@ class AudioStore {
 
   private async loadFingerprint() {
     await this.rootStore.deviceFingerprintStore.loadFingerprint()
-    this.fingerprint = this.rootStore.deviceFingerprintStore.getFingerprint
+    this.deviceId = this.rootStore.deviceFingerprintStore.getDeviceId || ''
 
-    if (!this.fingerprint) {
+    if (!this.deviceId) {
       console.error('Ошибка: fingerprint не загружен')
     }
   }

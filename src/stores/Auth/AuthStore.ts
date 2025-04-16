@@ -18,6 +18,7 @@ class AuthStore {
 
     try {
       const payload = {
+        deviceId: fingerprintData.deviceId,
         fingerprint: fingerprintData.fingerprintHash,
         userData: fingerprintData.userData,
       }
