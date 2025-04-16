@@ -1,5 +1,6 @@
 // src/modules/Player/index.tsx
 
+import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
@@ -17,14 +18,32 @@ import styles from './styles.module.scss'
 const Player = observer(() => {
   const { audioStore } = useStore()
   const { t } = useTranslation()
+  const [modeSwitchLocked, setModeSwitchLocked] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const handleModeClick = (instance: musicMode) => {
+    if (modeSwitchLocked || audioStore.mode === instance) return
+
+    audioStore.setMode(instance)
+    setModeSwitchLocked(true)
+    setTimeout(() => setModeSwitchLocked(false), 1500)
+  }
+
+  const handleRefresh = () => {
+    if (isRefreshing) return
+
+    audioStore.nextSegment()
+    setIsRefreshing(true)
+    setTimeout(() => setIsRefreshing(false), 1500)
+  }
 
   return (
     <>
-      <div className={styles.modeDecor}>
+      <div className={ styles.modeDecor }>
         <VisualizerCanvas
-          audio={audioStore.audio}
-          isPlaying={audioStore.isPlaying}
-          mode={audioStore.mode}
+          analyser={ audioStore.analyser }
+          isPlaying={ audioStore.isPlaying }
+          mode={ audioStore.mode }
         />
       </div>
 
@@ -33,8 +52,14 @@ const Player = observer(() => {
           <Button
             key={ instance }
             variant="ghost"
-            className={ cn(styles.modeItem, 'relative group', audioStore.mode === instance && styles.modeActive) }
-            onClick={ () => audioStore.setMode(instance) }
+            disabled={ modeSwitchLocked }
+            className={ cn(
+              styles.modeItem,
+              'relative group',
+              audioStore.mode === instance && styles.modeActive,
+              modeSwitchLocked && 'opacity-30 pointer-events-none cursor-not-allowed',
+            ) }
+            onClick={ () => handleModeClick(instance) }
           >
             <Sprite className={ styles.modeIcon } icon={ musicModeToIcon[instance] } />
             <span
@@ -50,8 +75,13 @@ const Player = observer(() => {
           <Button
             variant="secondary"
             size="lg"
-            onClick={ () => audioStore.nextSegment() }
-            className="relative group mr-6"
+            onClick={ handleRefresh }
+            disabled={ isRefreshing }
+            className={ cn(
+              styles.controlIcon,
+              'relative group mr-6',
+              isRefreshing && 'opacity-50 pointer-events-none cursor-not-allowed',
+            ) }
           >
             <ListRestart className={ cn(styles.controlIcon) } />
             <span

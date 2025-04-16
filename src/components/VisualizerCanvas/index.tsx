@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { musicMode } from '@/shared/enum/playlist'
 
 interface VisualizerCanvasProps {
-  audio: HTMLAudioElement
+  analyser: AnalyserNode | null
   isPlaying: boolean
   mode: musicMode
 }
@@ -32,14 +32,12 @@ const modeStyles: Record<musicMode, { color: string; shape: VisualizerShape }> =
   wintersleep: { color: '#b6fbff', shape: VisualizerShape.Grid },
 }
 
-export const VisualizerCanvas = ({ audio, isPlaying, mode }: VisualizerCanvasProps) => {
+export const VisualizerCanvas = ({ analyser, isPlaying, mode }: VisualizerCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationId = useRef<number | null>(null)
-  const audioCtxRef = useRef<AudioContext | null>(null)
-  const analyserRef = useRef<AnalyserNode | null>(null)
 
   useEffect(() => {
-    if (!isPlaying) {
+    if (!analyser || !isPlaying) {
       if (animationId.current) cancelAnimationFrame(animationId.current)
       return
     }
@@ -55,19 +53,6 @@ export const VisualizerCanvas = ({ audio, isPlaying, mode }: VisualizerCanvasPro
     canvas.height = canvas.clientHeight * dpr
     ctx.scale(dpr, dpr)
 
-    if (!audioCtxRef.current) {
-      const audioCtx = new AudioContext()
-      const analyser = audioCtx.createAnalyser()
-      const source = audioCtx.createMediaElementSource(audio)
-      source.connect(analyser)
-      analyser.connect(audioCtx.destination)
-      analyser.fftSize = 256
-
-      audioCtxRef.current = audioCtx
-      analyserRef.current = analyser
-    }
-
-    const analyser = analyserRef.current!
     const bufferLength = analyser.frequencyBinCount
     const dataArray = new Uint8Array(bufferLength)
     const { color, shape } = modeStyles[mode] || { color: '#fff', shape: VisualizerShape.Wave }
@@ -182,8 +167,10 @@ export const VisualizerCanvas = ({ audio, isPlaying, mode }: VisualizerCanvasPro
 
     draw()
 
-    return () => cancelAnimationFrame(animationId.current!)
-  }, [isPlaying, mode, audio])
+    return () => {
+      if (animationId.current) cancelAnimationFrame(animationId.current)
+    }
+  }, [analyser, isPlaying, mode])
 
   return (
     <canvas

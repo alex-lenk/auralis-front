@@ -21,6 +21,10 @@ class AudioStore {
   audio = new Audio()
   isInitialized = false
   error: string | null = null
+  audioCtx: AudioContext | null = null
+  analyser: AnalyserNode | null = null
+
+  private sourceNode: MediaElementAudioSourceNode | null = null
 
   // Отслеживает, загрузили ли мы хотя бы один раз плейлист
   private isPlaylistLoaded = false
@@ -42,6 +46,8 @@ class AudioStore {
       // инициализируем HLS
       await this.initHLS()
 
+      this.initAudioAnalysis()
+
       // грузим deviceId устройства
       await this.loadFingerprint()
 
@@ -50,6 +56,18 @@ class AudioStore {
       this.setError('Не удалось инициализировать аудиоплеер')
       throw error
     }
+  }
+
+  initAudioAnalysis() {
+    if (this.audioCtx || this.analyser || this.sourceNode) return
+
+    this.audioCtx = new AudioContext()
+    this.analyser = this.audioCtx.createAnalyser()
+    this.sourceNode = this.audioCtx.createMediaElementSource(this.audio)
+
+    this.sourceNode.connect(this.analyser)
+    this.analyser.connect(this.audioCtx.destination)
+    this.analyser.fftSize = 256
   }
 
   // Настраиваем HLS
@@ -148,8 +166,6 @@ class AudioStore {
     }
     this.startSegment = (this.startSegment + SEGMENTS_PER_PLAYLIST) % TOTAL_SEGMENTS
     this.isPlaylistLoaded = false
-
-    console.log(`Обновили список: startSegment=${ this.startSegment }`)
 
     // Загружаем новый блок
     if (this.isPlaying) {

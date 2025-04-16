@@ -2,11 +2,16 @@ import { isRouteErrorResponse, NavLink, useRouteError } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
 import { urlPage } from '@/shared/enum/urlPage'
+import { Button } from '@/components/ui/Button'
 
 interface RouteError {
   status: number;
   statusText: string;
   data: string;
+}
+
+const handleReload = () => {
+  window.location.reload()
 }
 
 function ErrorBoundary() {
@@ -15,6 +20,7 @@ function ErrorBoundary() {
 
   if (isRouteErrorResponse(error)) {
     const routeError = error as RouteError
+
 
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
@@ -32,6 +38,14 @@ function ErrorBoundary() {
             defaultValue: routeError.data,
           }) }
         </p>
+
+        <Button
+          className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+          onClick={ handleReload }
+        >
+          Обновить страницу
+        </Button>
+
         <NavLink
           to={ urlPage.Index }
           className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
@@ -49,6 +63,14 @@ function ErrorBoundary() {
         <pre className="text-lg text-gray-400 mt-2 whitespace-pre-wrap">
           { error.stack }
         </pre>
+
+        <Button
+          className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+          onClick={ handleReload }
+        >
+          Обновить страницу!
+        </Button>
+
         <NavLink
           to={ urlPage.Index }
           className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
@@ -62,6 +84,14 @@ function ErrorBoundary() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center p-4">
         <h1 className="text-6xl font-bold">{ t('error.unknown') }</h1>
+
+        <Button
+          className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+          onClick={ handleReload }
+        >
+          обновить страницу
+        </Button>
+
         <NavLink
           to={ urlPage.Index }
           className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
