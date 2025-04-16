@@ -1,7 +1,13 @@
 @use '@/styles/variables/include-media' as *;
 
 .modeDecor {
-  height: 400px;
+  @include media('>=1200px') {
+    height: 400px;
+  }
+
+  @include media('<=1199px') {
+    display: none;
+  }
 }
 
 .modeList {
@@ -17,6 +23,10 @@
   font-size: 14px;
   color: var(--color);
   flex-direction: column;
+
+  @include media('<=767px') {
+    width: 48px;
+  }
 }
 
 .modeActive {
@@ -25,17 +35,27 @@
 }
 
 .modeIcon {
-  width: 48px;
-  height: 48px;
   fill: var(--fill);
   flex-shrink: 0;
+
+  @include media('>=768px') {
+    width: 48px;
+    height: 48px;
+  }
+
+  @include media('<=767px') {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .control {
-  &::before {
-    width: 192px;
-    display: block;
-    content: '';
+  @include media('>=1200px') {
+    &::before {
+      width: 192px;
+      display: block;
+      content: '';
+    }
   }
 
   @include media('>=1440px') {
@@ -47,7 +67,9 @@
 .controlBox {
   margin-left: auto;
   margin-right: auto;
-  @include media('>=1200px') {
+
+  @include media('<=1199px') {
+    margin-bottom: 32px;
   }
 }
 

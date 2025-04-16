@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
 import { Loader } from 'lucide-react'
+import cn from 'classnames'
 
 import useStore from '@/stores/StoreContext'
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
+import styles from './styles.module.scss'
 
 const Home = observer(() => {
   const { t } = useTranslation()
@@ -28,7 +30,7 @@ const Home = observer(() => {
       <h1 className="mb-5 text-5xl font-bold">Auralis</h1>
 
       <p
-        className="mb-7 text-gray-400 w-2/5 text-lg"
+        className={cn(styles.intotext,"mb-7 text-gray-400 text-lg")}
         dangerouslySetInnerHTML={ { __html: t('homePage.subtitle') } }
       />
 

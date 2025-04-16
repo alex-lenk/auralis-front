@@ -1,11 +1,19 @@
 @use '@/styles/variables/include-media' as *;
 
 .logo {
-  min-width: 60px;
-  height: 50px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   line-height: 1;
+
+  @include media('>=768px') {
+    min-width: 60px;
+    height: 50px;
+  }
+
+  @include media('<=767px') {
+    min-width: 60px;
+    height: 32px;
+  }
 }
 
 .logoImg {
@@ -13,6 +21,13 @@
 }
 
 .logoName {
-  margin-left: 16px;
-  font-size: 30px;
+  @include media('>=768px') {
+    font-size: 30px;
+    margin-left: 16px;
+  }
+
+  @include media('<=767px') {
+    font-size: 20px;
+    margin-left: 10px;
+  }
 }

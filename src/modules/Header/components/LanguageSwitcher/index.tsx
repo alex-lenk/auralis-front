@@ -18,11 +18,11 @@ const LanguageSwitcher = observer(() => {
       </Button>
 
       { languageStore.isOpen && (
-        <div className="absolute top-10 left-0 border border-gray-400 rounded-lg shadow-lg w-40 overflow-hidden">
+        <div className="absolute top-10 right-0 border rounded-lg shadow-lg w-40 overflow-hidden">
           { languageStore.languages.map(({ code, label }) => (
             <button
               key={ code }
-              className={ `w-full text-left px-4 py-2 ${
+              className={ `w-full text-left px-4 py-2 bg-black ${
                 languageStore.language === code ? 'bg-blue-500 text-white' : 'hover:bg-blue-400'
               }` }
               onClick={ () => languageStore.setLanguage(code) }

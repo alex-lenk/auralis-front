@@ -1,0 +1,22 @@
+@use '@/styles/variables/include-media' as *;
+
+.footer {
+  font-size: 14px;
+
+  @include media('<=1199px') {
+    padding-top: 32px;
+    flex-wrap: wrap;
+  }
+}
+
+.footerCopy {
+  margin-right: auto;
+
+  @include media('<=1199px') {
+    margin-bottom: 16px;
+  }
+}
+
+.footerSolution {
+  border-bottom: 1px solid;
+}

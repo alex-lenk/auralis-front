@@ -1,0 +1,13 @@
+@use '@/styles/variables/include-media' as *;
+
+.intotext {
+  fill: var(--fill);
+  flex-shrink: 0;
+
+  @include media('>=768px') {
+    max-width: 566px;
+  }
+
+  @include media('<=767px') {
+  }
+}
