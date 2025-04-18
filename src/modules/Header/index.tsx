@@ -13,7 +13,7 @@ const Header = () => {
       <NavLink to={ urlPage.Index } className={ cn(styles.logo, 'flex items-center') }>
         <img
           className={styles.logoImg}
-          src="/assets/img/logo/logo-auralis.svg"
+          src="/assets/img/logo/logo-auralis-full.svg"
           alt="Auralis"
         />
         <span className={cn(styles.logoName)}>Auralis</span>
