@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router'
 import cn from 'classnames'
-
 import { urlPage } from '@/shared/enum/urlPage'
 import ThemeToggle from '@/modules/Header/components/ThemeToggle'
 import LanguageSwitcher from '@/modules/Header/components/LanguageSwitcher'
-// import { Button } from '@/components/ui/Button'
 import styles from './styles.module.scss'
 
 const Header = () => {
@@ -23,8 +21,6 @@ const Header = () => {
         <ThemeToggle />
 
         <LanguageSwitcher />
-
-        {/*<Button variant="secondary" href={ urlPage.SignIn }>Войти</Button>*/}
       </div>
     </header>
   )
