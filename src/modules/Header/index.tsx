@@ -14,7 +14,7 @@ const Header = () => {
           src="/assets/img/logo/logo-auralis-full.svg"
           alt="Auralis"
         />
-        <span className={cn(styles.logoName)}>Auralis</span>
+        <span className={cn(styles.logoName, 'font-accent')}>Auralis</span>
       </NavLink>
 
       <div className="flex items-center gap-4 ms-auto">

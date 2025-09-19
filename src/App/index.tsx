@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router';
 
-import '@/App/globals.css'
-import '@/App/app.css'
-import '@/i18n'
-import Header from '@/modules/Header'
-import Footer from '@/components/Footer'
+import '@/App/globals.css';
+import '@/styles/main.scss';
+import '@/i18n';
+import Header from '@/modules/Header';
+import Footer from '@/components/Footer';
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
       <Outlet />
       <Footer />
     </main>
-  )
-}
+  );
+};
 
-export default App
+export default App;

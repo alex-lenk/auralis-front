@@ -1,7 +1,6 @@
 @use '@/styles/variables/include-media' as *;
 
 .intotext {
-  fill: var(--fill);
   flex-shrink: 0;
 
   @include media('>=768px') {

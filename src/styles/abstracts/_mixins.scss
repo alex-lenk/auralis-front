@@ -1,0 +1,5 @@
+@mixin export-theme($map) {
+  @each $name, $value in $map {
+    --#{$name}: #{$value};
+  }
+}
