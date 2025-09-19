@@ -1,6 +1,8 @@
-# React v19 + TypeScript v5 + Vite v6 + mobx v6
+# Auralis (фронт на React + Vite + MobX, бэк на Fastify + Drizzle + PostgreSQL).
 
-Invoke-WebRequest -Method HEAD -Headers @{"Origin" = "http://localhost"} -Uri "https://cdn.alexlenk.ru/audio/wintersleep/wintersleep_60s_0000.aac"
+### 🎨 Frontend (React 19.1 + Vite 6.3 + MobX 6.13 + React Router 7.9)
+- вся бизнес-логика в сторе, не в компонентах.
+- **Tailwind 3.4 — только для админки** (UI Radix primitives).
 
 ## Expanding the ESLint configuration
 
