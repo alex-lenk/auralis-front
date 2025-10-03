@@ -1,21 +1,19 @@
-import { observer } from 'mobx-react-lite'
-import { Globe } from 'lucide-react'
-
-import useStore from '@/stores/StoreContext'
-import { Button } from '@/components/ui/Button'
+import { observer } from 'mobx-react-lite';
+import { clsx } from 'clsx';
+import useStore from '@/stores/StoreContext';
+import styles from './styles.module.scss';
 
 const LanguageSwitcher = observer(() => {
-  const { languageStore } = useStore()
+  const { languageStore } = useStore();
 
   return (
     <div className="relative">
-      <Button
-        variant="ghost"
-        className="flex items-center cursor-pointer"
+      <div
+        className={clsx(styles.lang, 'flex items-center cursor-pointer')}
         onClick={ () => languageStore.toggleMenu() }
       >
-        <Globe className="h-5 w-5" absoluteStrokeWidth />
-      </Button>
+        { languageStore.language.toUpperCase() }
+      </div>
 
       { languageStore.isOpen && (
         <div className="absolute top-10 right-0 border rounded-lg shadow-lg w-40 overflow-hidden">
@@ -34,7 +32,7 @@ const LanguageSwitcher = observer(() => {
         </div>
       ) }
     </div>
-  )
-})
+  );
+});
 
-export default LanguageSwitcher
+export default LanguageSwitcher;

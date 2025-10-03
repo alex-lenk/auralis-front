@@ -1,11 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 
 import { RootStore } from '@/stores/RootStore'
-
-export enum Theme {
-  Dark = 'dark',
-  Light = 'light',
-}
+import { Theme } from '@/shared/enum/theme';
 
 class ThemeToggleStore {
   theme: Theme = Theme.Dark
@@ -16,7 +12,7 @@ class ThemeToggleStore {
     const storedTheme = localStorage.getItem('theme') as Theme | null
     if (storedTheme === Theme.Light) {
       this.theme = Theme.Light
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove(Theme.Dark)
     }
   }
 
@@ -24,9 +20,9 @@ class ThemeToggleStore {
     this.theme = this.theme === Theme.Dark ? Theme.Light : Theme.Dark
     localStorage.setItem('theme', this.theme)
     if (this.theme === Theme.Light) {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove(Theme.Dark)
     } else {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add(Theme.Dark)
     }
   }
 }

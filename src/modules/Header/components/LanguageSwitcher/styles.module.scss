@@ -1,0 +1,11 @@
+@use '@/styles/variables/include-media' as *;
+
+.lang {
+  --color: var(--neutral-secondary);
+  color: var(--color);
+  transition: color .2s ease-in-out;
+
+  &:hover {
+    --color: var(--icon-btn-hover);
+  }
+}
