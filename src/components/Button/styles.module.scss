@@ -1,0 +1,122 @@
+.button {
+  --icon-size: 20px;
+  --icon-color: var(--white);
+  --pd-x: 24px;
+  --border-color: transparent;
+  --border-radius: 8px;
+  --color: var(--btn-text);
+  --bg-color: transparent;
+  --font-size: 16px;
+  --height: 44px;
+
+  background-color: var(--bg-color);
+  color: var(--color);
+  height: var(--height);
+  padding: 0 var(--pd-x);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size);
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &--primary {
+    --bg-color: var(--btn-default);
+    --icon-color: var(--white);
+
+    &:hover:not(.disabled) {
+      --bg-color: var(--btn-hover-active);
+    }
+  }
+
+  &--secondary {
+    --color: var(--primary);
+    --border-color: var(--primary);
+    --icon-color: var(--primary);
+    --bg-color: var(--quaternary);
+
+    &:hover:not(.disabled) {
+      --bg-color: var(--blue2);
+    }
+
+    &:active:not(.disabled) {
+      --bg-color: var(--tertiary);
+    }
+  }
+
+  &--transparent {
+    --icon-color: var(--primary);
+    --color: var(--primary);
+  }
+
+  &--white {
+    --bg-color: var(--white);
+    --icon-color: var(--primary);
+    --color: var(--primary);
+
+    &:hover:not(.disabled) {
+      --color: var(--hover);
+    }
+  }
+
+  &--disabled {
+    background-color: var(--bg-disabled);
+  }
+
+  &.disabled {
+    background-color: var(--bg-disabled);
+    cursor: not-allowed;
+  }
+
+  &--xl {
+    --icon-size: 28px;
+    --height: 52px;
+    --font-size: 18px;
+  }
+
+  &--lg {
+    --icon-size: 24px;
+    --height: 44px;
+  }
+
+  &--md {
+    --icon-size: 20px;
+    --font-size: 15px;
+  }
+
+  &--sm {
+    --icon-size: 16px;
+    --pd-x: 16px;
+    --height: 32px;
+    --font-size: 14px;
+  }
+}
+
+.icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: var(--icon-color);
+  display: inline-flex;
+  flex-shrink: 0;
+  transition: fill 0.2s ease-in-out;
+
+  &--left {
+    margin-right: 8px;
+  }
+
+  &--right {
+    margin-left: 8px;
+    order: 1;
+  }
+}
+
+.text {
+  color: inherit;
+}
+
+.textDisabled {
+  color: var(--text-disabled);
+}
