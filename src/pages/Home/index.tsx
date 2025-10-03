@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import { Loader } from 'lucide-react';
-import cn from 'classnames';
+import { clsx } from 'clsx';
 
 import useStore from '@/stores/StoreContext';
 import useDocumentTitle from '@/shared/hooks/useDocumentTitle';
-import { Button } from '@/components/ui/Button';
+import Button from '@/components/Button';
 import styles from './styles.module.scss';
 
 const Home = observer(() => {
@@ -29,23 +29,21 @@ const Home = observer(() => {
       <h1 className="mb-5 text-5xl font-bold font-accent">Auralis</h1>
 
       <p
-        className={ cn(styles.intotext, 'text-secondary mb-7 text-lg') }
-        dangerouslySetInnerHTML={ { __html: t('homePage.subtitle') } }
+        className={clsx(styles.intotext, 'text-secondary mb-7 text-lg')}
+        dangerouslySetInnerHTML={{ __html: t('homePage.subtitle') }}
       />
 
-      { deviceFingerprintStore.error && (
-        <p className="text-red-500 mt-4 mb-6">{ deviceFingerprintStore.error }</p>
-      ) }
+      {deviceFingerprintStore.error && (
+        <p className="text-red-500 mt-4 mb-6">{deviceFingerprintStore.error}</p>
+      )}
 
       <Button
-        size="xl"
         className="text-xl"
-        variant="default"
-        onClick={ handleButtonClick }
-        disabled={ loading }
+        onClick={handleButtonClick}
+        disabled={loading}
       >
-        { t('homePage.textButton') }
-        { loading && <Loader className="animate-spin" size={ 24 } /> }
+        {t('homePage.textButton')}
+        {loading && <Loader className="animate-spin" size={24} />}
       </Button>
     </div>
   );
