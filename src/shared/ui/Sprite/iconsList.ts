@@ -3,13 +3,18 @@ export enum Icons {
   deeperFocus = 'deeper-focus',
   focus = 'focus',
   hibernation = 'hibernation',
+  moon = 'moon',
   natureElements = 'nature-elements',
+  play = 'play',
   recovery = 'recovery',
   relax = 'relax',
   sleepRain = 'sleep-rain',
   sleep = 'sleep',
   spatialOrbit = 'spatial-orbit',
-  study = 'study'
+  study = 'study',
+  sun = 'sun',
+  update = 'update',
+  volume = 'volume'
 }
 
 export type IconName = (typeof Icons)[keyof typeof Icons];
