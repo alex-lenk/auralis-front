@@ -5,6 +5,7 @@ export enum Icons {
   hibernation = 'hibernation',
   moon = 'moon',
   natureElements = 'nature-elements',
+  pause = 'pause',
   play = 'play',
   recovery = 'recovery',
   relax = 'relax',

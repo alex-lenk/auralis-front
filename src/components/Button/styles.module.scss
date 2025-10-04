@@ -62,15 +62,6 @@
     }
   }
 
-  &--disabled {
-    background-color: var(--bg-disabled);
-  }
-
-  &.disabled {
-    background-color: var(--bg-disabled);
-    cursor: not-allowed;
-  }
-
   &--xl {
     --icon-size: 28px;
     --height: 52px;
@@ -83,6 +74,7 @@
   }
 
   &--md {
+    --height: 40px;
     --icon-size: 20px;
     --font-size: 15px;
   }
@@ -92,6 +84,19 @@
     --pd-x: 16px;
     --height: 32px;
     --font-size: 14px;
+  }
+
+  &--disabled,
+  &.disabled {
+    background-color: var(--bg-disabled);
+    cursor: not-allowed;
+    color: var(--text-disabled);
+  }
+
+  &.justIcon {
+    --pd-x: 0;
+    width: var(--height);
+    flex-shrink: 0;
   }
 }
 
@@ -111,12 +116,4 @@
     margin-left: 8px;
     order: 1;
   }
-}
-
-.text {
-  color: inherit;
-}
-
-.textDisabled {
-  color: var(--text-disabled);
 }

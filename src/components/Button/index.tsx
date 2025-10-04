@@ -9,11 +9,12 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'transparent' | 'white' | 'disabled';
   size?: 'xl' | 'lg' | 'md' | 'sm';
   type?: 'submit' | 'button';
-  iconName?: keyof typeof Icons;
+  iconName?: Icons;
   iconPosition?: 'left' | 'right';
   children?: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  isIcon?: boolean;
   className?: string;
   href?: string;
   target?: '_self' | '_blank';
@@ -29,6 +30,7 @@ const Button: FC<ButtonProps> = ({
   children,
   onClick,
   disabled = false,
+  isIcon = false,
   className,
   href,
   target,
@@ -39,22 +41,19 @@ const Button: FC<ButtonProps> = ({
     styles[`button--${variant}`],
     styles[`button--${size}`],
     className,
-    { [styles.disabled]: disabled }
+    { [styles.disabled]: disabled },
+    { [styles.justIcon]: isIcon }
   );
 
   const content = (
     <>
       {iconName && (
         <Sprite
-          icon={Icons[iconName]}
+          icon={iconName}
           className={clsx(styles.icon, styles[`icon--${iconPosition}`])}
         />
       )}
-      {children && (
-        <span className={clsx(styles.text, { [styles.textDisabled]: disabled })}>
-          {children}
-        </span>
-      )}
+      {children}
     </>
   );
 
@@ -65,7 +64,7 @@ const Button: FC<ButtonProps> = ({
         target={target}
         ref={ref as Ref<HTMLAnchorElement>}
         className={classes}
-        onClick={disabled ? (e) => e.preventDefault() : onClick}
+        onClick={disabled ? (event) => event.preventDefault() : onClick}
         aria-disabled={disabled}
       >
         {content}

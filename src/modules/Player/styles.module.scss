@@ -1,5 +1,11 @@
 @use '@/styles/variables/include-media' as *;
 
+.panel {
+  padding: 24px;
+  border-radius: 8px;
+  background: var(--bg-card);
+}
+
 .modeDecor {
   @include media('>=1200px') {
     height: 400px;
@@ -18,7 +24,8 @@
 }
 
 .modeItem {
-  --fill: gray;
+  --icon-color: gray;
+  --icon-size: 32px;
   --color: gray;
   font-size: 14px;
   color: var(--color);
@@ -27,53 +34,54 @@
   @include media('<=767px') {
     width: 48px;
   }
+
+  @include media('>=768px') {
+    --icon-size: 48px;
+  }
 }
 
 .modeActive {
-  --fill: #fff;
+  --icon-color: #fff;
   --color: #fff;
 }
 
-.modeIcon {
-  fill: var(--fill);
-  flex-shrink: 0;
-
-  @include media('>=768px') {
-    width: 48px;
-    height: 48px;
-  }
-
-  @include media('<=767px') {
-    width: 32px;
-    height: 32px;
-  }
-}
-
 .control {
-  @include media('>=1200px') {
-    &::before {
-      width: 192px;
-      display: block;
-      content: '';
-    }
-  }
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--bg-card-stroke);
+}
 
-  @include media('>=1440px') {
-    width: 80%;
-    margin: 0 auto;
+.controlVolume {
+  width: 224px;
+}
+
+.controlVolumeBtn {
+  --icon-size: 16px;
+  --icon-color: var(--icon-btn-default);
+
+  margin-right: 4px;
+}
+
+.controlVolumeBtnMuted {
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 24px;
+    height: 0;
+    border-bottom: 1px solid var(--icon-btn-default);
+    position: absolute;
+    top: 49%;
+    left: 33%;
+    transform: rotate(45deg);
   }
 }
 
-.controlBox {
-  margin-left: auto;
-  margin-right: auto;
-
-  @include media('<=1199px') {
-    margin-bottom: 32px;
-  }
+.controlBtn {
+  --icon-size: 40px;
+  --icon-color: var(--neutral-secondary);
 }
 
-.controlIcon {
-  width: 24px;
-  height: 24px;
+.controlBtnUpdate {
+  --icon-size: 20px;
 }

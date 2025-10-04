@@ -30,5 +30,10 @@
   "homePage": {
     "subtitle": "Where sound meets serenity - immerse yourself in concentration, calm or deep sleep",
     "textButton": "Try it!"
+  },
+  "player": {
+    "updateList": "Refresh the list",
+    "pause": "Pause",
+    "play": "Play"
   }
 }

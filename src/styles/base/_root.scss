@@ -11,14 +11,11 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --body-bg: ;
-    --body-bg: linear-gradient(103deg, #0D0E26 0%, #27174F 25%, #461D49 50%, #501631 75%, #39052A 100%);
-    --body-color: var(--neutral-main);
+.dark {
+  --body-bg: linear-gradient(103deg, #0D0E26 0%, #27174F 25%, #461D49 50%, #501631 75%, #39052A 100%);
+  --body-color: var(--neutral-main);
 
-    @each $color, $value in $dark-theme {
-      --#{$color}: #{$value};
-    }
+  @each $color, $value in $dark-theme {
+    --#{$color}: #{$value};
   }
 }

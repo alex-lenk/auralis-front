@@ -1,5 +1,5 @@
-import { Icons } from '@/shared/ui/Sprite/iconsList'
-import { musicMode } from '@/shared/enum/playlist'
+import { Icons } from '@/shared/ui/Sprite/iconsList';
+import { musicMode } from '@/shared/enum/playlist';
 
 export const musicModeToIcon: Record<musicMode, Icons> = {
   [musicMode.AlanWatts]: Icons.coloredNoises,
@@ -14,4 +14,4 @@ export const musicModeToIcon: Record<musicMode, Icons> = {
   [musicMode.SpatialOrbit]: Icons.spatialOrbit,
   [musicMode.Study]: Icons.study,
   [musicMode.WinterSleep]: Icons.hibernation,
-}
+};
