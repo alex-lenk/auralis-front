@@ -1,9 +1,13 @@
 @use '@/styles/variables/include-media' as *;
 
-.intotext {
+.introtext {
   flex-shrink: 0;
 
   @include media('>=768px') {
     max-width: 566px;
   }
+}
+
+.btn {
+  min-width: 150px;
 }

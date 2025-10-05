@@ -29,7 +29,7 @@ const Home = observer(() => {
       <h1 className="mb-5 text-5xl font-bold font-accent">Auralis</h1>
 
       <p
-        className={clsx(styles.intotext, 'text-secondary mb-7 text-lg')}
+        className={clsx(styles.introtext, 'text-secondary mb-7 text-lg')}
         dangerouslySetInnerHTML={{ __html: t('homePage.subtitle') }}
       />
 
@@ -38,9 +38,9 @@ const Home = observer(() => {
       )}
 
       <Button
-        className="text-xl"
         onClick={handleButtonClick}
         disabled={loading}
+        className={styles.btn}
       >
         {t('homePage.textButton')}
         {loading && <Loader className="animate-spin" size={24} />}

@@ -16,7 +16,7 @@ const Walkman = observer(() => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  useDocumentTitle(t(`player.headTitle`));
+  useDocumentTitle(t('general.headTitle'));
 
   useEffect(() => {
     const checkFingerprint = async () => {

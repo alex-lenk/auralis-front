@@ -31,6 +31,13 @@
     "subtitle": "Where sound meets serenity - immerse yourself in concentration, calm or deep sleep",
     "textButton": "Try it!"
   },
+  "general": {
+    "headTitle": "Auralis — где звук встречается с безмятежностью"
+  },
+  "footer": {
+    "copy": "is owned by its developer",
+    "consent": "Storage Consent"
+  },
   "player": {
     "headTitle": "Auralis: where sound meets serenity",
     "updateList": "Refresh the list",
@@ -38,5 +45,12 @@
     "play": "Play",
     "soundOn": "Turn off sound",
     "soundOff": "Turn on sound"
+  },
+  "policy": {
+    "title": "Data Usage Policy",
+    "text1": "The Auralis website uses modern technologies such as LocalStorage, IndexedDB, Session Storage, and cookies. They help save your preferences, speed up page loading, and remember your settings.",
+    "text2": "Auralis does not use cookies to track you or collect personal information.\n Everything we store is solely to make the site fast, reliable, and pleasant to use.",
+    "text3": "If you have any questions, feel free to contact me ",
+    "text4": "Thank you for your trust!"
   }
 }

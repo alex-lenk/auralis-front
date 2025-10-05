@@ -1,17 +1,19 @@
 import { NavLink } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { clsx } from 'clsx';
-
 import { externalLinks, urlPage } from '@/shared/enum/urlPage';
 import StorageConsent from '@/components/StorageConsent';
 import styles from './styles.module.scss';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
+
   return (
     <>
       <footer className={clsx(styles.footer, 'container mx-auto shrink-0 py-4 px-4 mt-auto flex')}>
         <div className={styles.footerCopy}>
-          ©{currentYear} <span className="font-accent">Auralis</span> принадлежит разработчику
+          ©{currentYear} <span className="font-accent">Auralis</span> {t('footer.copy')}
           —&nbsp;<NavLink
           to={externalLinks.AlexLenk}
           className="font-accent font-bold"
@@ -19,7 +21,9 @@ const Footer = () => {
         >AlexLenk</NavLink>
         </div>
 
-        <NavLink className={clsx('font-accent')} to={urlPage.Policy}>Storage Consent</NavLink>
+        <NavLink className={clsx('font-accent')} to={urlPage.Policy}>
+          {t('footer.consent')}
+        </NavLink>
       </footer>
 
       <StorageConsent />
