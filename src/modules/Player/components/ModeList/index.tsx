@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
 import useStore from '@/stores/StoreContext';
@@ -6,7 +7,6 @@ import { musicMode } from '@/shared/enum/playlist';
 import { musicModeToIcon } from '@/shared/mapping/musicModeToIcon';
 import Button from '@/components/Button';
 import styles from '@/modules/Player/styles.module.scss';
-import { observer } from 'mobx-react-lite';
 
 const ModeList = observer(() => {
   const { audioStore } = useStore();
@@ -27,6 +27,8 @@ const ModeList = observer(() => {
         <Button
           key={instance}
           variant="transparent"
+          size="xl"
+          isIcon={true}
           disabled={modeSwitchLocked}
           className={clsx(
             styles.modeItem,
@@ -37,10 +39,11 @@ const ModeList = observer(() => {
           onClick={() => handleModeClick(instance)}
           iconName={musicModeToIcon[instance]}
         >
-              <span
-                className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-              {t(`musicMode.${instance}`)}
-            </span>
+          <span
+            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+          >
+            {t(`musicMode.${instance}`)}
+          </span>
         </Button>
       ))}
     </div>

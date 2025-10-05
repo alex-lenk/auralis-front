@@ -38,7 +38,7 @@ const Control = observer(() => {
         <span
           className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
         >
-          {t('player.updateList')} "{t(`musicMode.${audioStore.mode}`)}"
+          {t('player.updateList')} «{t(`musicMode.${audioStore.mode}`)}»
         </span>
       </Button>
 
@@ -51,7 +51,8 @@ const Control = observer(() => {
         iconName={audioStore.isPlaying ? Icons.pause : Icons.play}
       >
         <span
-          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        >
           {audioStore.isPlaying ? t('player.pause') : t('player.play')}
         </span>
       </Button>
@@ -65,9 +66,16 @@ const Control = observer(() => {
             onClick={() => audioStore.toggleMute()}
             iconName={Icons.volume}
             className={clsx(
-              styles.controlVolumeBtn, audioStore.isMuted && styles.controlVolumeBtnMuted
+              styles.controlVolumeBtn,
+              audioStore.isMuted && styles.controlVolumeBtnMuted,
+              'relative group'
             )}
           >
+            <span
+              className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-2 py-1 rounded bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            >
+              {audioStore.isMuted ? t('player.soundOff') : t('player.soundOn')}
+            </span>
           </Button>
 
           <Slider

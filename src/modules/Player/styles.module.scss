@@ -1,12 +1,16 @@
 @use '@/styles/variables/include-media' as *;
 
 .panel {
+  margin-top: -24px;
   padding: 24px;
   border-radius: 8px;
   background: var(--bg-card);
+  position: relative;
+  z-index: 1;
 }
 
 .modeDecor {
+  width: 100%;
   @include media('>=1200px') {
     height: 400px;
   }
@@ -17,32 +21,28 @@
 }
 
 .modeList {
-  margin-bottom: 32px;
   width: 100%;
   justify-content: center;
   gap: 8px;
 }
 
 .modeItem {
-  --icon-color: gray;
-  --icon-size: 32px;
-  --color: gray;
+  --icon-color: var(--icon-btn-default);
+  --icon-size: 24px;
+  width: var(--height);
   font-size: 14px;
-  color: var(--color);
   flex-direction: column;
 
-  @include media('<=767px') {
-    width: 48px;
-  }
-
-  @include media('>=768px') {
-    --icon-size: 48px;
+  &:hover {
+    --bg-color: var(--bg-card-stroke);
   }
 }
 
 .modeActive {
-  --icon-color: #fff;
-  --color: #fff;
+  --icon-color:var(--icon-btn-active);
+  --border-radius: 12px;
+  --bg-color: var(--icon-btn-active-bg);
+  --border-color: var(--icon-btn-active-stroke);
 }
 
 .control {
@@ -58,6 +58,7 @@
 .controlVolumeBtn {
   --icon-size: 16px;
   --icon-color: var(--icon-btn-default);
+  opacity: 0.5;
 
   margin-right: 4px;
 }

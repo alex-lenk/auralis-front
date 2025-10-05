@@ -32,8 +32,11 @@
     "textButton": "Try it!"
   },
   "player": {
+    "headTitle": "Auralis: where sound meets serenity",
     "updateList": "Refresh the list",
     "pause": "Pause",
-    "play": "Play"
+    "play": "Play",
+    "soundOn": "Turn off sound",
+    "soundOff": "Turn on sound"
   }
 }

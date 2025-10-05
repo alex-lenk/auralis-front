@@ -1,11 +1,11 @@
 export enum Icons {
-  coloredNoises = 'colored-noises',
-  deeperFocus = 'deeper-focus',
+  alanwatts = 'alanwatts',
   focus = 'focus',
-  hibernation = 'hibernation',
+  grimes = 'grimes',
+  jamesblake = 'jamesblake',
   moon = 'moon',
-  natureElements = 'nature-elements',
   pause = 'pause',
+  plastikman = 'plastikman',
   play = 'play',
   recovery = 'recovery',
   relax = 'relax',
@@ -15,7 +15,8 @@ export enum Icons {
   study = 'study',
   sun = 'sun',
   update = 'update',
-  volume = 'volume'
+  volume = 'volume',
+  wintersleep = 'wintersleep'
 }
 
 export type IconName = (typeof Icons)[keyof typeof Icons];
