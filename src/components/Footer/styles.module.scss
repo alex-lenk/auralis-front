@@ -5,12 +5,14 @@
 
   @include media('<=1199px') {
     padding-top: 32px;
-    flex-wrap: wrap;
+    text-align: center;
   }
 }
 
 .footerCopy {
-  margin-right: auto;
+  @include media('>=1200px') {
+    margin-right: auto;
+  }
 
   @include media('<=1199px') {
     margin-bottom: 16px;

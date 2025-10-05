@@ -2,6 +2,7 @@
   --icon-size: 20px;
   --icon-color: var(--white);
   --pd-x: 24px;
+  --pd-y: 0;
   --border-color: transparent;
   --border-radius: 8px;
   --color: var(--btn-text);
@@ -12,7 +13,7 @@
   background-color: var(--bg-color);
   color: var(--color);
   height: var(--height);
-  padding: 0 var(--pd-x);
+  padding: var(--pd-y) var(--pd-x);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: var(--font-size);

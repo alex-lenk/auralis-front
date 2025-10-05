@@ -1,7 +1,11 @@
 @use '@/styles/variables/include-media' as *;
 
 .header {
-  padding-top: 40px;
+  padding-top: 16px;
+
+  @include media('>=768px') {
+    padding-top: 40px;
+  }
 }
 
 .logo {

@@ -9,12 +9,14 @@ const LanguageSwitcher = observer(() => {
 
   return (
     <div className="relative">
-      <div
+      <Button
+        variant="transparent"
+        size="md"
         className={clsx(styles.lang, 'flex items-center cursor-pointer uppercase')}
         onClick={() => languageStore.toggleMenu()}
       >
         {languageStore.language}
-      </div>
+      </Button>
 
       {languageStore.isOpen && (
         <div className={clsx(

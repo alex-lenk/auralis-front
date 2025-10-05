@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { clsx } from 'clsx';;
+import { clsx } from 'clsx';
 import useStore from '@/stores/StoreContext';
 import { Theme } from '@/shared/enum/theme';
-import Sprite from '@/shared/ui/Sprite';
 import { Icons } from '@/shared/ui/Sprite/iconsList';
+import Button from '@/components/Button';
 import styles from './styles.module.scss';
 
 const ThemeToggle = observer(() => {
@@ -11,18 +11,18 @@ const ThemeToggle = observer(() => {
   const isDark = themeToggleStore.theme === Theme.Dark;
 
   return (
-    <div
+    <Button
+      isIcon={true}
+      variant="transparent"
+      size="md"
       className={clsx(
         styles.toggle,
         isDark ? styles.toggleSun : ''
       )}
-      onClick={ () => themeToggleStore.toggleTheme() }
+      onClick={() => themeToggleStore.toggleTheme()}
+      iconName={isDark ? Icons.sun : Icons.moon}
     >
-      <Sprite
-        icon={ isDark ? Icons.sun : Icons.moon }
-        className={clsx(styles.icon)}
-      />
-    </div>
+    </Button>
   );
 });
 

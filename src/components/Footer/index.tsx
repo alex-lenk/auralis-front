@@ -11,14 +11,14 @@ const Footer = () => {
 
   return (
     <>
-      <footer className={clsx(styles.footer, 'container mx-auto shrink-0 py-4 px-4 mt-auto flex')}>
-        <div className={styles.footerCopy}>
+      <footer className={clsx(styles.footer, 'container mx-auto shrink-0 py-4 px-4 mt-auto d:flex')}>
+        <div className={clsx(styles.footerCopy, 'whitespace-pre-line')}>
           ©{currentYear} <span className="font-accent">Auralis</span> {t('footer.copy')}
-          —&nbsp;<NavLink
+         <NavLink
           to={externalLinks.AlexLenk}
           className="font-accent font-bold"
           target="_blank"
-        >AlexLenk</NavLink>
+        >&nbsp;AlexLenk</NavLink>
         </div>
 
         <NavLink className={clsx('font-accent')} to={urlPage.Policy}>

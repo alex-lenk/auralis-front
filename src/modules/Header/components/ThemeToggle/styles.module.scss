@@ -1,20 +1,14 @@
 @use '@/styles/variables/include-media' as *;
 
 .toggle {
-  --iconFill: var(--neutral-secondary);
-  padding: 8px;
-  cursor: pointer;
+  --icon-size: 24px;
+  --icon-color: var(--neutral-secondary);
+  --pd-x: 8px;
+  --pd-y: 8px;
 
   &:hover {
-    --iconFill: var(--icon-btn-hover);
+    --icon-color: var(--icon-btn-hover);
   }
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  fill: var(--iconFill);
-  transition: fill 0.3s ease;
 }
 
 .toggleSun {

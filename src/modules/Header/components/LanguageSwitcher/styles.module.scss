@@ -1,9 +1,14 @@
 @use '@/styles/variables/include-media' as *;
 
 .lang {
+  --pd-x: 9px;
   --color: var(--neutral-secondary);
+
+  margin-right: 8px;
   color: var(--color);
   transition: color .2s ease-in-out;
+  font-family: var(--font-accent);
+  font-weight: 400;
 
   &:hover {
     --color: var(--icon-btn-hover);
