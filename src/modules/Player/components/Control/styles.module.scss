@@ -1,0 +1,118 @@
+@use '@/styles/variables/include-media' as *;
+
+.control {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--bg-card-stroke);
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  @include media('<1200px') {
+    height: 60px;
+    position: relative;
+  }
+}
+
+.controlBtn {
+  --icon-size: 40px;
+  --icon-color: var(--neutral-secondary);
+}
+
+.controlBtnUpdate {
+  --icon-size: 20px;
+  margin-left: -12px;
+}
+
+.controlPlaying {
+  display: flex;
+  justify-content: center;
+}
+
+.controlBtnToggle {
+  --icon-size: 16px;
+
+  @include media('>=1200px') {
+    display: none;
+  }
+
+  @include media('<1200px') {
+    margin-left: auto;
+  }
+}
+
+.controlBtnClose {
+  --icon-size: 16px;
+  --icon-color: var(--icon-btn-default);
+  order: 1;
+  margin-left: 4px;
+
+  @include media('>=1200px') {
+    display: none !important;
+  }
+}
+
+.controlBtnVolume {
+  --icon-size: 16px;
+  --icon-color: var(--icon-btn-default);
+
+  opacity: 0.5;
+  margin-right: 4px;
+}
+
+.controlBtnVolumeMuted {
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 24px;
+    height: 0;
+    border-bottom: 1px solid var(--icon-btn-default);
+    position: absolute;
+    top: 49%;
+    left: 20%;
+    transform: rotate(45deg);
+  }
+}
+
+.controlWrapper {
+  display: flex;
+
+  @include media('>=1200px') {
+    justify-content: flex-end;
+  }
+}
+
+.controlVolume {
+  display: flex;
+  align-items: center;
+
+  @include media('>=1200px') {
+    width: 224px;
+  }
+
+  @include media('<1200px') {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+/*
+.controlVolumeActive {
+  @include media('<=1200px') {
+    display: block;
+
+    .controlUpdate,
+    .controlPlaying {
+      display: none;
+    }
+
+    .controlVolume {
+      display: flex;
+    }
+  }
+}
+
+*/

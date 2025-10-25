@@ -8,6 +8,11 @@ import styles from './styles.module.scss';
 const Footer = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
+  const hiddenPaths: string[] = [urlPage.Walkman];
+
+  if (hiddenPaths.includes(location.pathname)) {
+    return null;
+  }
 
   return (
     <>

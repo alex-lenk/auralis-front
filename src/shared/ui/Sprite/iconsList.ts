@@ -1,5 +1,6 @@
 export enum Icons {
   alanwatts = 'alanwatts',
+  close = 'close',
   focus = 'focus',
   grimes = 'grimes',
   jamesblake = 'jamesblake',

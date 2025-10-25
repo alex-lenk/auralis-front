@@ -22,7 +22,7 @@ const ModeList = observer(() => {
   };
 
   return (
-    <div className={clsx(styles.modeList, 'flex flex-wrap')}>
+    <div className={clsx(styles.modeList)}>
       {Object.values(musicMode).map(instance => (
         <Button
           key={instance}

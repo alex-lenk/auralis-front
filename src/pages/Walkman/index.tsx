@@ -43,7 +43,7 @@ const Walkman = observer(() => {
   }
 
   return (
-    <div className="container mx-auto mt-auto flex flex-col items-center justify-center p-6">
+    <div className="container mx-auto flex flex-col items-center justify-center p-6">
       <h1 className={clsx(styles.title, 'font-bold')}>
         {t(`musicMode.${audioStore.mode}`)}
       </h1>
