@@ -1,0 +1,14 @@
+@use 'base';
+
+.bg-primary,
+.bg-background {
+  background-color: var(--icon-btn-active);
+}
+
+.bg-primary\/20 {
+  background-color: var(--bg-control);
+}
+
+.d-none {
+  display: none !important;
+}

@@ -1,0 +1,21 @@
+@use '../abstracts/tokens' as *;
+
+:root {
+  --font-base: 'Rubik', sans-serif;
+  --font-accent: 'Sen', sans-serif;
+  --body-bg: linear-gradient(103deg, #CACCF2 0%, #C8BAE8 25%, #E8B6ED 50%, #EFB3CF 75%, #F2CAE6 100%);
+  --body-color: var(--neutral-main);
+
+  @each $color, $value in $light-theme {
+    --#{$color}: #{$value};
+  }
+}
+
+.dark {
+  --body-bg: linear-gradient(103deg, #0D0E26 0%, #27174F 25%, #461D49 50%, #501631 75%, #39052A 100%);
+  --body-color: var(--neutral-main);
+
+  @each $color, $value in $dark-theme {
+    --#{$color}: #{$value};
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "name": "Auralis",
-  "short_name": "Auralis",
+  "name": "MyWebSite",
+  "short_name": "MySite",
   "icons": [
     {
       "src": "/assets/favicons/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#151C28",
-  "background_color": "#151C28",
+  "theme_color": "#501631",
+  "background_color": "#461D49",
   "display": "standalone"
 }

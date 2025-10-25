@@ -1,0 +1,30 @@
+@use '@/styles/variables/include-media' as *;
+
+.toggle {
+  --icon-size: 24px;
+  --icon-color: var(--neutral-secondary);
+  --pd-x: 8px;
+  --pd-y: 8px;
+
+  &:hover {
+    --icon-color: var(--icon-btn-hover);
+  }
+}
+
+.toggleSun {
+  will-change: filter;
+  transition: filter 300ms;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: icon-spin infinite 10s linear;
+  }
+}
+
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

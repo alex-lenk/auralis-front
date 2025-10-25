@@ -1,0 +1,60 @@
+// neutrals
+$white: #ffffff;
+$black: #000000;
+
+// brand / accent
+$red-main: #f8665c;
+$red-dark: #db574e;
+
+// shared between themes
+$violet-1: #9f56df;
+$violet-2: #b161d1;
+$violet-3: #a277aa;
+$violet-4: #61486b;
+$violet-5: #3f2d46;
+$violet-6: #2c2442;
+$brownish: #7b6285;
+
+// dark theme specific
+$lavender-1: #f2d9fd;
+$lavender-2: #cba5dc;
+$lavender-3: #dfa0f8;
+$lavender-4: #acb3df;
+$lavender-5: #9b8ce8;
+$dark-bg: #0d0e26;
+
+$light-theme: (
+  neutral-main: $violet-6,
+  neutral-secondary: $violet-4,
+  text-info: rgba($violet-4, 0.5),
+  btn-default: $red-main,
+  btn-text: $white,
+  btn-hover-active: $red-dark,
+  icon-btn-default: rgba($brownish, 0.8),
+  icon-btn-hover: $violet-5,
+  icon-btn-active: $violet-1,
+  icon-btn-active-stroke: rgba($violet-1, 0.25),
+  icon-btn-active-bg: rgba($violet-1, 0.1),
+  bg-card: rgba($violet-3, 0.25),
+  bg-card-stroke: rgba($white, 0.2),
+  bg-control: rgba($violet-2, 0.15),
+  bg-tooltip: $white
+);
+
+$dark-theme: (
+  neutral-main: $white,
+  neutral-secondary: $lavender-1,
+  text-info: rgba($lavender-1, 0.5),
+  btn-default: $red-main,
+  btn-text: $white,
+  btn-hover-active: $red-dark,
+  icon-btn-default: rgba($lavender-1, 0.8),
+  icon-btn-hover: $lavender-2,
+  icon-btn-active: $lavender-3,
+  icon-btn-active-stroke: rgba($lavender-3, 0.25),
+  icon-btn-active-bg: rgba($lavender-3, 0.1),
+  bg-card: rgba($white, 0.05),
+  bg-card-stroke: rgba($lavender-4, 0.2),
+  bg-control: rgba($lavender-5, 0.12),
+  bg-tooltip: $dark-bg
+);
