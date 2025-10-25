@@ -3,6 +3,10 @@
 .footer {
   color: var(--text-info);
 
+  @include media('>=1200px') {
+    display: flex;
+  }
+
   @include media('<=1199px') {
     padding-top: 32px;
     text-align: center;
@@ -16,5 +20,6 @@
 
   @include media('<=1199px') {
     margin-bottom: 16px;
+    white-space: pre-line;
   }
 }
