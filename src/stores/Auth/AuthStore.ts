@@ -1,4 +1,3 @@
-// src/stores/Auth/AuthStore.ts
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import api from '@/stores/Auth/Api'
@@ -12,7 +11,6 @@ class AuthStore {
     makeAutoObservable(this)
   }
 
-  // Отправка анонимного пользователя на сервер
   async anonymousRegistration(fingerprintData: IFingerprintData) {
     this.loading = true
 
