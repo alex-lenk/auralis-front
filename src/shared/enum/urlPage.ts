@@ -5,5 +5,5 @@ export enum urlPage {
 }
 
 export enum externalLinks {
-  AlexLenk= 'https://alexlenk.ru'
+  AlexLenk = 'https://alexlenk.ru'
 }

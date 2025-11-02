@@ -1,4 +1,3 @@
-// src/stores/Auth/Api.ts
 import axios from 'axios'
 import { API_BASE_URL, IS_DEVELOPMENT } from '@/shared/config/env'
 

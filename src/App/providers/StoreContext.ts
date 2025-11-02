@@ -1,4 +1,3 @@
-// src/App/providers/StoreContext.ts
 import { createContext } from 'react';
 
 import rootStore from '@/stores/RootStore';

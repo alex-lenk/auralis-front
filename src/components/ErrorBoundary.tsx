@@ -55,7 +55,6 @@ function ErrorBoundary() {
       </div>
     );
   } else if (error instanceof Error) {
-    // Обработка обычных ошибок (например, исключений)
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
         <h1 className="text-6xl font-bold">{t('error.unknown')}</h1>
@@ -80,7 +79,6 @@ function ErrorBoundary() {
       </div>
     );
   } else {
-    // Обработка неизвестных ошибок
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center p-4">
         <h1 className="text-6xl font-bold">{t('error.unknown')}</h1>
