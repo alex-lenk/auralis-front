@@ -1,51 +1,112 @@
-# Auralis (фронт на React + Vite + MobX, бэк на Fastify + Drizzle + PostgreSQL).
+# 🎧 Auralis
 
-### 🎨 Frontend (React 19.1 + Vite 6.3 + MobX 6.13 + React Router 7.9)
-- вся бизнес-логика в сторе, не в компонентах.
-- **Tailwind 3.4 — только для админки** (UI Radix primitives).
+> Где звук встречается с безмятежностью.  
+> Экосистема для генерации и потокового воспроизведения звуковых сцен в реальном времени.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧩 Стек
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Frontend — **React 19 + Vite 7 + MobX 6**
+- Архитектура с централизованными сторами: вся бизнес-логика вынесена из компонентов.
+- Анимации и визуализация на **Tailwind 4 + Radix Primitives**.
+- Аудиопоток — **HLS.js**, с динамическими режимами (`focus`, `relax`, `sleep`, и др.).
+- i18n на базе **i18next** с автоопределением языка.
+
+### Backend — **Fastify 5.6 + Drizzle ORM 0.44 + PostgreSQL 16**
+- Слои: `routes → controllers → services → repositories`.
+- Генерация HLS-плейлистов в реальном времени.
+- Хранение анонимных пользователей по device-fingerprint.
+- Rate-limit и обработка ошибок на уровне middleware.
+- Поддержка миграций через **drizzle-kit 0.31**.
+
+---
+
+## 🗂 Структура проекта
+
+### Frontend (`/auralis-front`)
+
+```
+src/
+├─ app/ # Инициализация React и маршрутизация
+├─ components/ # Переиспользуемые UI-компоненты
+├─ modules/ # Логические модули (Player, Auth, etc.)
+├─ stores/ # MobX-сторы (вся бизнес-логика)
+├─ shared/ # Константы, утилиты, enum’ы, mapping
+├─ assets/ # SVG, иконки, стили
+└─ main.tsx # Точка входа
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Backend (`/auralis-back`)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+src/
+├─ routes/ # Fastify маршруты
+├─ controllers/ # Обработка HTTP-запросов
+├─ services/ # Основная бизнес-логика
+├─ repositories/ # Запросы к базе через Drizzle ORM
+├─ schemas/ # Drizzle ORM схемы и миграции
+├─ plugins/ # Плагины Fastify (drizzle, rate-limit и др.)
+├─ config/ # Настройки окружения и логирование
+└─ app.ts # Точка входа Fastify
+```
+
+---
+
+## ⚙️ Установка и запуск
+
+### 1. Клонирование
+```bash
+git clone https://github.com/yourname/auralis.git
+cd auralis
+```
+
+### 2. Установка зависимостей
+
+```bash
+pnpm install
+# или npm i / yarn
+```
+
+### 3. Настройка окружения
+Создай файл .env в корне с переменными:
+
+```bash
+VITE_API_PORT=3000
+VITE_API_BASE_URL=https://auralis.alexlenk.ru
+DATABASE_URL=postgres://user:pass@localhost:5432/auralis
+```
+
+### 4. Запуск
+
+```bash
+# Frontend
+cd auralis-front
+pnpm dev
+
+# Backend
+cd auralis-back
+pnpm start
+```
+
+## 🧠 Ключевые особенности
+
+- 🎵 Бесшовный потоковый звук — генерация HLS-плейлистов по запросу.
+
+- 🧘 Интерактивные режимы — адаптивная музыка под настроение.
+
+- 🌙 Анонимное использование — регистрация не требуется.
+
+- 🌍 Локализация RU/EN — i18next с автодетектором.
+
+- 💡 TypeScript-strict — строгая типизация во всех слоях.
+
+## 🧑‍💻 Автор
+
+**Александр Янк**
+
+[AlexLenk.ru](https://alexlenk.ru) | [GitHub](https://github.com/alex-lenk) 
+
+> Auralis — где звук встречается с безмятежностью.
+
+
